@@ -25,6 +25,5 @@ public class BinarySearch {
     }
 
     private void test() {
-        return;
     }
 }
