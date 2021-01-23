@@ -11,8 +11,8 @@ import lombok.Getter;
  */
 @Getter
 public class ChessPieceUnit {
-    private String name;
-    private Color color;
+    private final String name;
+    private final Color color;
 
     public ChessPieceUnit(String name, Color color) {
         this.name = name;

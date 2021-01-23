@@ -7,7 +7,7 @@ import java.util.Map;
  * 棋盘
  */
 public class ChessBoard {
-    private Map<Integer, ChessPiece> chessPieceMap = new HashMap<>();
+    private final Map<Integer, ChessPiece> chessPieceMap = new HashMap<>();
 
     public ChessBoard() {
         init();
