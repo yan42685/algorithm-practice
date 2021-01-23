@@ -6,6 +6,9 @@ public class Test {
         proxyByLambda();
     }
 
+    /**
+     * 常用
+     */
     private static void proxyByProxyObject() {
         ITarget target = new Target();
         ITarget proxyObject = (ITarget) ProxyFactory.create(target, new CustomProxy(target));

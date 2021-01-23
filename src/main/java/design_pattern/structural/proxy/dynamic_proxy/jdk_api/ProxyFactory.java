@@ -12,7 +12,7 @@ public class ProxyFactory {
 
     /**
      * @param target  目标对象
-     * @param handler 代理逻辑
+     * @param handler 代理逻辑或代理对象
      * @return Object 代理对象
      */
     public static Object create(Object target, InvocationHandler handler) {
