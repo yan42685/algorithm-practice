@@ -1,4 +1,4 @@
-package design_pattern.template_method;
+package design_pattern.structural.template_method;
 
 public abstract class AbstractClass {
     public final void say() {
