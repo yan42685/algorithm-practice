@@ -10,6 +10,9 @@ public interface ICarFactory {
 class ACarFactory implements ICarFactory {
     @Override
     public ICar createCar() {
+        //
+        // 处理一大堆逻辑
+        //
         return new ACar();
     }
 }
@@ -17,6 +20,9 @@ class ACarFactory implements ICarFactory {
 class BCarFactory implements ICarFactory {
     @Override
     public ICar createCar() {
+        //
+        // 处理一大堆逻辑
+        //
         return new BCar();
     }
 }
