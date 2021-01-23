@@ -5,7 +5,7 @@ package design_pattern.creational.factory.simple_factory;
  */
 public class SimpleFactory {
 
-    public static IProduct get(ProductType type) {
+    public static IProduct create(ProductType type) {
         switch (type) {
             case TYPE_A:
                 return new ProductA();
