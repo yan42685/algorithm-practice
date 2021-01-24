@@ -5,6 +5,9 @@ public class Test {
         HandlerChain handlerChain = new HandlerChain();
         handlerChain.addHandler(new HandlerA());
         handlerChain.addHandler(new HandlerB());
-        handlerChain.startUtilFinished(new Target("hahah"));
+        Target target = new Target("hahah");
+        handlerChain.triggerPreHandlers(target);
+        System.out.println("do something...");
+        handlerChain.triggerPostHandlers(target);
     }
 }

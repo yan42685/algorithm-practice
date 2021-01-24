@@ -3,29 +3,34 @@ package design_pattern.behavioural.chain_of_responsibility;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 职责链实现方式很灵活
+ * 实现可以为数组也可以为链表，结构可以为线性、树状、环, 可以中途停止也可以全部handle, 看具体需求
+ */
 public class HandlerChain {
-    private List<Handler> handlers = new ArrayList<>();
+    private final List<Handler> handlers = new ArrayList<>();
 
     public void addHandler(Handler handler) {
         handlers.add(handler);
     }
 
-    /**
-     * 完成即停止
-     */
-    public void startUtilFinished(Target target) {
+    public void triggerPreHandlers(Target target) {
         for (Handler handler : handlers) {
-            boolean finished = handler.handle(target);
+            boolean finished = handler.preHandle(target);
             if (finished) {
                 break;
             }
         }
     }
 
-    /**
-     * 所有handler都执行一遍
-     */
-    public void startForAllHandlers(Target target) {
-        handlers.forEach(handler -> handler.handle(target));
+    public void triggerPostHandlers(Target target) {
+        for (Handler handler : handlers) {
+            boolean finished = handler.postHandle(target);
+            if (finished) {
+                break;
+            }
+        }
     }
+
+
 }
