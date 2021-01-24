@@ -28,15 +28,17 @@ public class ListenerRegistry {
                 .filter(method -> method.isAnnotationPresent(Subscribe.class))
                 .forEach(method -> {
                     Asserts.argumentsLength(1, method);
-                    registry.putIfAbsent(clazz, new CopyOnWriteArraySet<>());
+                    Class<?> eventClass = method.getParameterTypes()[0];
+                    registry.putIfAbsent(eventClass, new CopyOnWriteArraySet<>());
                     // 为该类型的event添加listener回调方法
-                    registry.get(clazz).add((new EventHandler(listener, method)));
+                    registry.get(eventClass).add((new EventHandler(listener, method)));
                 });
     }
 
     /**
      * 获取 event 对应的 handlers
      */
+    // TODO: 解决bug
     public List<EventHandler> getMatchedHandlers(Object event) {
         return registry.entrySet().stream()
                 .filter(entry -> entry.getKey().equals(event.getClass()))

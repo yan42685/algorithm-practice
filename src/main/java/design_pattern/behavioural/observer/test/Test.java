@@ -7,6 +7,6 @@ public class Test {
         EventBus eventBus = new EventBus();
         CustomListener listener = new CustomListener();
         eventBus.register(listener);
-        eventBus.emit(new CustomEvent("hello111111"));
+        eventBus.emit(new CustomEvent("event"));
     }
 }

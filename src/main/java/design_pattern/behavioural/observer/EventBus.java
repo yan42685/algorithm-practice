@@ -29,7 +29,6 @@ public class EventBus {
     public void emit(Object event) {
         registry.getMatchedHandlers(event)
                 .forEach(handler -> {
-                            System.out.println("hahah");
                             executor.execute(() -> handler.handle(event));
                         }
                 );
