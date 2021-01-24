@@ -1,5 +1,6 @@
 package design_pattern.behavioural.strategy;
 
+import utils.Asserts;
 import utils.ReflectionUtils;
 
 import java.util.*;
@@ -18,7 +19,9 @@ public class StrategyFactory {
     }
 
     public static IStrategy get(StrategyType type) {
-        return strategyMap.getOrDefault(type, null);
+        IStrategy strategy = strategyMap.get(type);
+        Asserts.nonNull(strategy);
+        return strategy;
     }
 
     /**
