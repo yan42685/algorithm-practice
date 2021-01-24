@@ -38,7 +38,6 @@ public class ListenerRegistry {
     /**
      * 获取 event 对应的 handlers
      */
-    // TODO: 解决bug
     public List<EventHandler> getMatchedHandlers(Object event) {
         return registry.entrySet().stream()
                 .filter(entry -> entry.getKey().equals(event.getClass()))
