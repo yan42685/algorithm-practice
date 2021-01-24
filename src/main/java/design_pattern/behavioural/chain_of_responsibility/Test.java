@@ -5,6 +5,6 @@ public class Test {
         HandlerChain handlerChain = new HandlerChain();
         handlerChain.addHandler(new HandlerA());
         handlerChain.addHandler(new HandlerB());
-        handlerChain.startHandle("hello");
+        handlerChain.startUtilFinished(new Target("hahah"));
     }
 }
