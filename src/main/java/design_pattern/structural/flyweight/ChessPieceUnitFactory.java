@@ -1,6 +1,6 @@
 package design_pattern.structural.flyweight;
 
-import utils.AssertUtils;
+import utils.Asserts;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +15,7 @@ public class ChessPieceUnitFactory {
     }
 
     public static ChessPieceUnit get(int id) {
-        AssertUtils.isTrue(pieces.containsKey(id));
+        Asserts.isTrue(pieces.containsKey(id));
         return pieces.get(id);
     }
 }
