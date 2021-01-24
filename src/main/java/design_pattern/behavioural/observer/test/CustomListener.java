@@ -4,7 +4,7 @@ import design_pattern.behavioural.observer.Subscribe;
 
 public class CustomListener {
     @Subscribe
-    public void sayHello(CustomEvent event) {
+    public void callback(CustomEvent event) {
         System.out.printf("Trigger %s\n", event.getMessage());
     }
 }
