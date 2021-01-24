@@ -1,11 +1,12 @@
 package utils;
 
-import design_pattern.behavioural.strategy.IStrategy;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Set;
 
 public class ReflectionUtils {
@@ -17,5 +18,11 @@ public class ReflectionUtils {
         return new Reflections(configurationBuilder).getSubTypesOf(clazz);
     }
 
-
+    public static void invoke(Object target, Method method, Object... args) {
+        try {
+            method.invoke(target, args);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
 }
