@@ -8,9 +8,9 @@ import lombok.NonNull;
 import java.util.function.Consumer;
 
 @EqualsAndHashCode
-// 指定重写的方法名
 @Builder
 public class Transition {
+    // @NonNull用于build()时的校验
     @NonNull
     @Getter
     private final String eventName;
