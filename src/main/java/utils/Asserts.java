@@ -4,26 +4,42 @@ import java.lang.reflect.Method;
 
 public class Asserts {
     public static void nonNull(Object object) {
+        nonNull(object, "非null断言失败");
+    }
+
+    public static void nonNull(Object object, String message) {
         if (object == null) {
-            throw new RuntimeException("非null断言失败");
+            throw new RuntimeException(message);
         }
     }
 
     public static void equals(Object objectA, Object objectB) {
+        equals(objectA, objectB, "相等断言失败");
+    }
+
+    public static void equals(Object objectA, Object objectB, String message) {
         if (!objectA.equals(objectB)) {
-            throw new RuntimeException("相等断言失败");
+            throw new RuntimeException(message);
         }
     }
 
     public static void isTrue(boolean predication) {
+        isTrue(predication, "为真断言失败");
+    }
+
+    public static void isTrue(boolean predication, String message) {
         if (!predication) {
-            throw new RuntimeException("为真断言失败");
+            throw new RuntimeException(message);
         }
     }
 
     public static void isFalse(boolean predication) {
+        isFalse(predication, "为假断言失败");
+    }
+
+    public static void isFalse(boolean predication, String message) {
         if (predication) {
-            throw new RuntimeException("为假断言失败");
+            throw new RuntimeException(message);
         }
     }
 
