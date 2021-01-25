@@ -1,26 +1,23 @@
 package design_pattern.behavioural.state.finite_state_machine;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NonNull;
 
 import java.util.function.Consumer;
 
-@EqualsAndHashCode
-@Builder
 public class Transition {
-    // @NonNull用于build()时的校验
-    @NonNull
     @Getter
     private final String eventName;
-    @NonNull
     @Getter
     private final State target;
-    @NonNull
-    private final Consumer<TransitionEvent> handler;
+    private final Consumer<IEvent> handler;
 
-    public void handleEvent(TransitionEvent transitionEvent) {
-        handler.accept(transitionEvent);
+    public Transition(State target, IEvent event, Consumer<IEvent> handler) {
+        this.eventName = event.getName();
+        this.target = target;
+        this.handler = handler;
+    }
+
+    public void handleEvent(IEvent event) {
+        handler.accept(event);
     }
 }

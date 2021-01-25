@@ -15,11 +15,11 @@ public class StateMachine {
     public StateMachine(State initialState) {
         this.currentState = initialState;
         // 可以理解成最简单的模板方法
-        log.info("状态注册成功");
+        log.info("状态机启动");
     }
 
     @Subscribe
-    private void onEvent(TransitionEvent event) {
+    private void onEvent(IEvent event) {
         Optional<Transition> theTransition = Lambda.findOne(currentState.getAllTransitions(),
                 transition -> transition.getEventName().equals(event.getName()));
 
