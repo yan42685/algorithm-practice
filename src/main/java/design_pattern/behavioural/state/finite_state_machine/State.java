@@ -16,7 +16,7 @@ public class State {
         this.type = type;
     }
 
-    public void addTransition(Transition transition) {
+    public State addTransition(Transition transition) {
         allTransitions.forEach(oldTransition -> {
             Asserts.isFalse(oldTransition.getEventName().equals(transition.getEventName()),
                     "同一状态不能添加相同name的transition");
@@ -24,5 +24,6 @@ public class State {
                     "同一状态不能添加相同target的transition");
         });
         allTransitions.add(transition);
+        return this;
     }
 }
