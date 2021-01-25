@@ -13,15 +13,12 @@ import java.util.function.Consumer;
 public class Transition {
     @NonNull
     @Getter
-    private String eventName;
+    private final String eventName;
     @NonNull
     @Getter
-    private State source;
+    private final State target;
     @NonNull
-    @Getter
-    private State target;
-    @NonNull
-    private Consumer<TransitionEvent> handler;
+    private final Consumer<TransitionEvent> handler;
 
     public void handleEvent(TransitionEvent transitionEvent) {
         handler.accept(transitionEvent);

@@ -8,20 +8,19 @@ import java.util.Set;
 
 public class State {
     @Getter
-    private StateType type;
+    private final StateType type;
     @Getter
-    private Set<Transition> allTransitions = new HashSet<>();
+    private final Set<Transition> allTransitions = new HashSet<>();
 
     public State(StateType type) {
         this.type = type;
     }
 
-    public State addTransition(Transition transition) {
+    public void addTransition(Transition transition) {
         allTransitions.forEach(oldTransition -> {
             Asserts.isFalse(oldTransition.getEventName().equals(transition.getEventName()),
                     "同一状态不能添加相同名字的transition");
         });
         allTransitions.add(transition);
-        return this;
     }
 }

@@ -17,7 +17,6 @@ public class StateMachineFactory {
 
         // TODO: 用注解实现注册状态
         Transition eatTransition = Transition.builder()
-                .source(normalState)
                 .target(greatState)
                 .eventName(RandomEvent.EAT.getName())
                 // 后期可以重构为发布订阅模式
@@ -25,7 +24,6 @@ public class StateMachineFactory {
                 .build();
 
         Transition starveTransition = Transition.builder()
-                .source(greatState)
                 .target(normalState)
                 .eventName(RandomEvent.STARVE.getName())
                 .handler(event -> log.info("触发事件: {}\n", event.getName()))

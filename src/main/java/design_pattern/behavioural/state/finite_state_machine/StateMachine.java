@@ -5,13 +5,10 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import utils.Lambda;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Slf4j
 public class StateMachine {
-    private List<State> allStates = new ArrayList<>();
     @Getter
     private State currentState;
 
@@ -32,8 +29,4 @@ public class StateMachine {
         });
     }
 
-    public StateMachine addState(State state) {
-        allStates.add(state);
-        return this;
-    }
 }
