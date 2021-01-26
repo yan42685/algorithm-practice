@@ -6,7 +6,6 @@ public interface Visitor {
     void visit(WordFile file);
 
     void visit(XmlFile file);
-
 }
 
 /**
