@@ -20,7 +20,7 @@ public class StateMachine {
 
     @Subscribe
     private void onEvent(IEvent event) {
-        Optional<Transition> theTransition = Lambda.findOne(currentState.getAllTransitions(),
+        Optional<Transition> theTransition = Lambda.findFirst(currentState.getAllTransitions(),
                 transition -> transition.getEventName().equals(event.getName()));
 
         theTransition.ifPresent(transition -> {

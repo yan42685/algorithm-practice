@@ -20,7 +20,7 @@ public class Lambda {
         }
     }
 
-    public static <T> Optional<T> findOne(Collection<T> collection, Predicate<T> predicate) {
+    public static <T> Optional<T> findFirst(Collection<T> collection, Predicate<T> predicate) {
         return collection.stream().filter(predicate).findFirst();
     }
 }
