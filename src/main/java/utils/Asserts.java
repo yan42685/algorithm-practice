@@ -3,11 +3,11 @@ package utils;
 import java.lang.reflect.Method;
 
 public class Asserts {
-    public static void nonNull(Object object) {
-        nonNull(object, "非null断言失败");
+    public static void notNull(Object object) {
+        notNull(object, "非null断言失败");
     }
 
-    public static void nonNull(Object object, String message) {
+    public static void notNull(Object object, String message) {
         if (object == null) {
             throw new RuntimeException(message);
         }

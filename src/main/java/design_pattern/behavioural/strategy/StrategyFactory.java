@@ -20,7 +20,7 @@ public class StrategyFactory {
 
     public static IStrategy get(StrategyType type) {
         IStrategy strategy = strategyMap.get(type);
-        Asserts.nonNull(strategy);
+        Asserts.notNull(strategy);
         return strategy;
     }
 
