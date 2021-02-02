@@ -30,8 +30,6 @@ public class ThreadUtils {
         } catch (InterruptedException e) {
             // 恢复主线程中断状态
             Thread.currentThread().interrupt();
-            // 主动中断子线程
-            thread.interrupt();
             e.printStackTrace();
         }
     }
