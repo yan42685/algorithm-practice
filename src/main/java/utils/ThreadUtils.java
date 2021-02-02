@@ -20,4 +20,19 @@ public class ThreadUtils {
             e.printStackTrace();
         }
     }
+
+    /**
+     * @param thread 被连接的子线程
+     */
+    public static void join(Thread thread) {
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            // 恢复主线程中断状态
+            Thread.currentThread().interrupt();
+            // 主动中断子线程
+            thread.interrupt();
+            e.printStackTrace();
+        }
+    }
 }
