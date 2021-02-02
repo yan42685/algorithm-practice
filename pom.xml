@@ -16,6 +16,7 @@
         <lombok.version>1.18.10</lombok.version>
         <org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
         <logback-classic.version>1.2.3</logback-classic.version>
+        <apache-commons-lang3.version>3.8.1</apache-commons-lang3.version>
         <hutool.all.version>5.5.2</hutool.all.version>
     </properties>
 
@@ -40,6 +41,11 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback-classic.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${apache-commons-lang3.version}</version>
         </dependency>
         <dependency>
             <groupId>cn.hutool</groupId>
