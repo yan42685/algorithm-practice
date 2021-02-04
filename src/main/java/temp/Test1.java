@@ -5,6 +5,7 @@ import cn.hutool.core.util.RandomUtil;
 import utils.Lambda;
 
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Test1 {
     public static void main(String[] args) {
@@ -19,6 +20,7 @@ public class Test1 {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        AtomicInteger atomicInteger = new AtomicInteger();
     }
 
     private static void test() {

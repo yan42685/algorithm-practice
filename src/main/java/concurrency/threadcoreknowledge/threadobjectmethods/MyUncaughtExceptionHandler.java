@@ -1,4 +1,4 @@
-package concurrency.threadcoreknowledge.uncaughtexceptionhandler;
+package concurrency.threadcoreknowledge.threadobjectmethods;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 
