@@ -9,7 +9,7 @@ public class Trie<T> {
     private final Node<T> root = new Node<T>();
 
     private static class Node<T> {
-        T data;
+        T value;
         boolean isBreakPoint = false;
         Map<Character, Node<T>> map = new HashMap<>();
     }
@@ -28,7 +28,7 @@ public class Trie<T> {
                 pre.map.put(c, curr);
             }
         }
-        curr.data = value;
+        curr.value = value;
         curr.isBreakPoint = true;
         return true;
     }
@@ -58,7 +58,7 @@ public class Trie<T> {
             pre.map.remove(firstRedundantChar);
         } else {
             // 否则是中间breakPoint，只删除data和isBreakPoint
-            curr.data = null;
+            curr.value = null;
             curr.isBreakPoint = false;
         }
         return true;
@@ -77,7 +77,7 @@ public class Trie<T> {
     public T get(String key) {
         Node<T> lastNode = getLastMatchNode(key);
         if (lastNode != null && lastNode.isBreakPoint) {
-            return lastNode.data;
+            return lastNode.value;
         }
         return null;
     }
