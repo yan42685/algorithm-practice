@@ -5,6 +5,9 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 查询速度比hashmap慢一点，但是对于前缀结构比较省空间
+ */
 public class Trie<T> {
     private final Node<T> root = new Node<T>();
 
