@@ -18,7 +18,7 @@ public class Trie<T> {
         if (StringUtils.isEmpty(key)) {
             return false;
         }
-        Node<T> pre = root;
+        Node<T> pre;
         Node<T> curr = root;
         for (char c : key.toCharArray()) {
             pre = curr;
