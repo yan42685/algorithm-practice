@@ -3,7 +3,9 @@ package algorithm.common;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 查询速度比hashmap慢一点，但是对于前缀结构比较省空间
@@ -85,6 +87,26 @@ public class Trie<T> {
         return null;
     }
 
+    public Set<String> keySet() {
+        StringBuilder strBuilder = new StringBuilder();
+        Set<String> result = new HashSet<>();
+        keySetHelper(strBuilder, result, root);
+        return result;
+    }
+
+    private void keySetHelper(StringBuilder strBuilder, Set<String> result, Node<T> curr) {
+        if (curr != null) {
+            if (curr.isBreakPoint) {
+                result.add(strBuilder.toString());
+            }
+            for (Character ch : curr.map.keySet()) {
+                strBuilder.append(ch);
+                keySetHelper(strBuilder, result, curr.map.get(ch));
+                strBuilder.setLength(strBuilder.length() - 1);
+            }
+        }
+    }
+
     /**
      * 如果word中的字符全部匹配，则返回最后一个匹配的Node，否则返回null
      */
@@ -98,4 +120,5 @@ public class Trie<T> {
         }
         return curr;
     }
+
 }
