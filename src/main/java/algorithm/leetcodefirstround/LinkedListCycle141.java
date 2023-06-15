@@ -6,6 +6,9 @@ package algorithm.leetcodefirstround;
  * @description:
  */
 public class LinkedListCycle141 {
+    private class ListNode {
+        ListNode next;
+    }
     public boolean hasCycle(ListNode head) {
         if (head == null || head.next == null) return false;
         ListNode walker = head;

@@ -6,6 +6,10 @@ package algorithm.leetcodefirstround;
  * @description:
  */
 public class PalindromeLinkedList234 {
+    private class ListNode {
+        int val;
+        ListNode next;
+    }
     public boolean isPalindrome(ListNode head) {
         if (head == null || head.next == null) {
             return true;

@@ -1,7 +1,6 @@
-package temp;
+package test;
 
-public class Test2 {
+public class Test4 {
     public static void main(String[] args) {
-
     }
 }

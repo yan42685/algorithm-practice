@@ -7,7 +7,7 @@ package algorithm.leetcodefirstround;
  */
 
 public class MergeTwoSortedLists21 {
-    public class ListNode {
+    class ListNode {
         int val;
         ListNode next;
         ListNode(int x) { val = x; }

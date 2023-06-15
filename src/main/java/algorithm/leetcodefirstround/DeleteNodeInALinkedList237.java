@@ -6,7 +6,7 @@ package algorithm.leetcodefirstround;
  * @description:
  */
 public class DeleteNodeInALinkedList237 {
-     public class ListNode {
+     class ListNode {
          int val;
          ListNode next;
          ListNode(int x) { val = x; }
