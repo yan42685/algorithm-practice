@@ -6,24 +6,49 @@ package algorithm.common;
  * @date 11/17/2019 10:36
  */
 public class BinarySearch {
-    public static <T extends Comparable<T>> int bSearch(T[] list, T key) {
-
-        int low = 0;
-        int high = list.length - 1;
-        while (low <= high) {
-            int mid = low + (high - low) / 2;
-            int comp = key.compareTo(list[mid]);
-            if (comp > 0) {
-                low = mid + 1;
-            } else if (comp < 0) {
-                high = mid - 1;
+    // 缺点是如果有多个target则不能返回其边界位置
+    public int search(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (target < nums[mid]) {
+                right = mid;
+            } else if (target > nums[mid]) {
+                left = mid + 1;
             } else {
                 return mid;
             }
         }
-        return -1;
+        return nums[left] == target ? left : -1;
     }
 
-    private void test() {
+    public int findFirst(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (target <= nums[mid]) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return nums[left] == target ? left : -1;
+    }
+
+
+    public int findLast(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+        while (left < right) {
+            int mid = left + (right - left + 1) / 2;
+            if (target >= nums[mid]) {
+                left = mid;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return nums[left] == target ? left : -1;
     }
 }
