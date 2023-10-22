@@ -1,29 +1,31 @@
 package design_pattern.creational.singleton;
 
+import java.io.ObjectStreamException;
+import java.io.Serializable;
+
 /**
- * 饿汉  枚举实现
- * 用枚举则可以保证反射安全、序列化安全
- * <p>
- * 非enum的实现在序列化时会通过反射调用无参数的构造方法创建一个新的对象
+ * 线程安全、反射安全、序列化安全
  */
-public enum LazySingleton2 {
-    /**
-     * 单例
-     */
-    INSTANCE;
-
-    /**
-     * 变量默认是 static 的
-     */
-    private final Resource something;
-
-    LazySingleton2() {
-        something = new Resource();
+public class LazySingleton2 implements Serializable {
+    private LazySingleton2() {
+        // 保证反射安全
+        if (SingletonHolder.instance != null) {
+            throw new RuntimeException("Instance already exists, cannot instantiate another one.");
+        }
     }
 
-    public Resource getSomething() {
-        return something;
+    public Resource getInstance() {
+        return SingletonHolder.instance;
     }
+
+    private static class SingletonHolder {
+        private static Resource instance = new Resource();
+    }
+
+    // 保证序列化安全，这个方法在反序列化时调用，保证返回的是单例instance
+    private Object readResolve() {
+        return SingletonHolder.instance;
+    }
+
 
 }
-
