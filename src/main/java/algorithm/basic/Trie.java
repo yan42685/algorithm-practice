@@ -1,4 +1,4 @@
-package algorithm.common;
+package algorithm.basic;
 
 import org.apache.commons.lang3.StringUtils;
 

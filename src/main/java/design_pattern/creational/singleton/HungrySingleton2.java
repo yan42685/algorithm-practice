@@ -9,6 +9,7 @@ public enum HungrySingleton2 {
 
     private Resource instance;
 
+    // 默认就是private的，因为无法在外部创建枚举类的实例
     HungrySingleton2() {
         instance = new Resource();
     }

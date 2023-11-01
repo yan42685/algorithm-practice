@@ -1,4 +1,4 @@
-package algorithm.common.stringmatch;
+package algorithm.basic.stringmatch;
 
 public class StringMatch {
 

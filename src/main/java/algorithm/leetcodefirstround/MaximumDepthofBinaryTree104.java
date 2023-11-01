@@ -1,6 +1,6 @@
 package algorithm.leetcodefirstround;
 
-import algorithm.common.TreeNode;
+import algorithm.basic.TreeNode;
 
 /**
  * @author alexyan

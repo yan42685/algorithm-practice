@@ -1,4 +1,4 @@
-package algorithm.common;
+package algorithm.basic;
 
 import org.junit.jupiter.api.Test;
 

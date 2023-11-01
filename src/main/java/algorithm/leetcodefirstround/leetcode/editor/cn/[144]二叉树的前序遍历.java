@@ -20,7 +20,7 @@ package algorithm.leetcodefirstround.leetcode.editor.cn;//给定一个二叉树�
 
 
 
-import algorithm.common.TreeNode;
+import algorithm.basic.TreeNode;
 
 import java.util.LinkedList;
 import java.util.List;
