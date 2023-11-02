@@ -1,6 +1,7 @@
 package test.lab1;
 
 import org.junit.jupiter.api.Test;
+import trash.homework.test.lab1.SimpleEquation;
 
 public class SimpleEquationTest {
     @Test

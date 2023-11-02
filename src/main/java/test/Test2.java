@@ -1,24 +1,35 @@
 package test;
 
 public class Test2 {
+    private int money;
     public static void main(String[] args) {
-        System.out.println(findMin(new int[]{5, 1, 3}));
+        PiggyBank piggyBank = new Test2().new PiggyBank();
+        new Thread(piggyBank).start();
+        new Thread(piggyBank).start();
+
     }
 
-    public static int findMin(int[] nums) {
-        int left = 0, right = nums.length - 1;
-        while (left < right) {
-            // 左中心 相同元素收缩右侧 mid != right
-            int mid = left + (right + 1 - left) / 2;
-            // 因为mid可能等于left, 所以只比较mid和right
-            if (nums[mid] > nums[left]) {
-                right = mid - 1;
-            } else if (nums[mid] < nums[left]) {
-                left = mid;
-            } else {
-                ++left;
+    private class PiggyBank implements Runnable {
+
+        public PiggyBank() {
+            money = 10000;
+        }
+
+        @Override
+        public void run() {
+            while (true) {
+                synchronized (this) {
+                    if (money < 1000) {
+                        System.out.println("余额不足");
+                        return;
+                    }
+                    money -= 1000;
+                    System.out.println(Thread.currentThread().getName() + " 取钱1000, 余额：" + money);
+                }
             }
         }
-        return nums[left];
     }
+
 }
+
+
