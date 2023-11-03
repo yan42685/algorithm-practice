@@ -32,7 +32,6 @@ public class PaintBrush {
             case DOWN:
             default:
                 throw new IllegalArgumentException("Illegal direction: " + tank.getDirection());
-
         }
     }
 }

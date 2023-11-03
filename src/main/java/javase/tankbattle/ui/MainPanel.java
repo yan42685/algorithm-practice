@@ -45,7 +45,6 @@ public class MainPanel extends JPanel implements Runnable {
             // 定时重绘
             try {
                 Thread.sleep(Constants.REPAINT_INTERVAL);
-                System.out.println("1");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

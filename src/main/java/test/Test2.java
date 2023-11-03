@@ -1,35 +1,32 @@
 package test;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class Test2 {
-    private int money;
     public static void main(String[] args) {
-        PiggyBank piggyBank = new Test2().new PiggyBank();
-        new Thread(piggyBank).start();
-        new Thread(piggyBank).start();
+        // 创建JFrame窗口
+        JFrame frame = new JFrame("青色矩形");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 300);
 
-    }
-
-    private class PiggyBank implements Runnable {
-
-        public PiggyBank() {
-            money = 10000;
-        }
-
-        @Override
-        public void run() {
-            while (true) {
-                synchronized (this) {
-                    if (money < 1000) {
-                        System.out.println("余额不足");
-                        return;
-                    }
-                    money -= 1000;
-                    System.out.println(Thread.currentThread().getName() + " 取钱1000, 余额：" + money);
-                }
+        // 创建一个自定义的JPanel，并添加到窗口中
+        JPanel panel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // 设置颜色为青色
+                g.setColor(Color.CYAN);
+                // 画一个矩形，参数分别是x坐标，y坐标，宽度，高度
+                g.fillRect(0, 0, 200, 100);
             }
-        }
-    }
+        };
 
+        frame.add(panel);
+
+        // 显示窗口
+        frame.setVisible(true);
+    }
 }
 
 

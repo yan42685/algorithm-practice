@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Getter
-public abstract class AbstractTank {
+public abstract class AbstractTank extends Movable {
     // 宽度为 10 + 20 + 10
     protected int width = 40;
     // 长度为 60
@@ -20,43 +20,17 @@ public abstract class AbstractTank {
     protected int minShootInterval = 1000;
     // 上次射击时间
     protected long lastShootTime = 0;
-    protected List<Bullet> flyingBullets;
-    // 横坐标
-    protected double x;
-    // 纵坐标
-    protected double y;
-
-    protected Direction direction;
-    protected TankType type;
     @Setter
     protected boolean isAlive = true;
+    protected List<Bullet> flyingBullets;
+    protected TankType type;
 
     public AbstractTank(double x, double y, Direction direction) {
-        this.x = x;
-        this.y = y;
-        this.direction = direction;
+        super(x, y, direction);
         this.flyingBullets = new LinkedList<>();
         setType();
     }
 
-    public void move(Direction direction) {
-        switch (direction) {
-            case UP:
-                y -= speed;
-                break;
-            case DOWN:
-                y += speed;
-                break;
-            case LEFT:
-                x -= speed;
-                break;
-            case RIGHT:
-                x += speed;
-                break;
-            default:
-                throw new IllegalArgumentException("Illegal direction: " + direction);
-        }
-    }
 
     public void shoot() {
         long currentTime = System.currentTimeMillis();
