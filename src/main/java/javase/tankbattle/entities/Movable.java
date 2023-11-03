@@ -24,20 +24,22 @@ public abstract class Movable {
         // System.out.println("speed " + getSpeed());
         switch (direction) {
             case UP:
-                setDirection(Direction.UP);
-                setY(getY() - getSpeed());
+                this.direction = Direction.UP;
+                // 不使用this.speed是因为父类和子类都声明了speed属性，为了避免静态绑定而使用getSpeed()
+                // 更好的做法是将getSpeed声明为抽象方法，并移除父类的speed属性，此处不这么做是为了记录静态绑定现象
+                y -= getSpeed();
                 break;
             case DOWN:
-                setDirection(Direction.DOWN);
-                setY(getY() + getSpeed());
+                this.direction = Direction.DOWN;
+                y += getSpeed();
                 break;
             case LEFT:
-                setDirection(Direction.LEFT);
-                setX(getX() - getSpeed());
+                this.direction = Direction.LEFT;
+                x -= getSpeed();
                 break;
             case RIGHT:
-                setDirection(Direction.RIGHT);
-                setX(getX() + getSpeed());
+                this.direction = Direction.RIGHT;
+                x += getSpeed();
                 break;
             default:
                 throw new IllegalArgumentException("Illegal direction: " + direction);

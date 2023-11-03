@@ -3,11 +3,11 @@ package algorithm.basic.graph.unionfind;
 public class UnionFind {
     private int[] parent;
     // 连通分量的个数
-    private int count;
+    private int rootCount;
 
     // 默认节点的值为[0, size-1]
     public UnionFind(int size) {
-        count = size;
+        rootCount = size;
         // 初始让每个元素的根节点=自己
         parent = new int[size];
         for (int i = 0; i < parent.length; i++) {
@@ -21,7 +21,7 @@ public class UnionFind {
         int rootB = findRoot(b);
         if (rootA != rootB) {
             parent[rootA] = rootB;
-            --count;
+            --rootCount;
         }
     }
 
@@ -39,7 +39,7 @@ public class UnionFind {
         return findRoot(a) == findRoot(b);
     }
 
-    public int getCount() {
-        return count;
+    public int getRootCount() {
+        return rootCount;
     }
 }

@@ -20,7 +20,7 @@ public class TankCommandListener extends KeyAdapter {
     public TankCommandListener(JPanel panel, AbstractTank tank) {
         map = new HashMap<>();
         this.panel = panel;
-        registerMoveCommands(tank);
+        registerCommands(tank);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class TankCommandListener extends KeyAdapter {
         }
     }
 
-    private void registerMoveCommands(AbstractTank tank) {
+    private void registerCommands(AbstractTank tank) {
         map.put(KeyEvent.VK_W, new MoveCommand(tank, Direction.UP));
         map.put(KeyEvent.VK_S, new MoveCommand(tank, Direction.DOWN));
         map.put(KeyEvent.VK_A, new MoveCommand(tank, Direction.LEFT));
@@ -54,5 +54,8 @@ public class TankCommandListener extends KeyAdapter {
         map.put(KeyEvent.VK_DOWN, new MoveCommand(tank, Direction.DOWN));
         map.put(KeyEvent.VK_LEFT, new MoveCommand(tank, Direction.LEFT));
         map.put(KeyEvent.VK_RIGHT, new MoveCommand(tank, Direction.RIGHT));
+
+        map.put(KeyEvent.VK_J, new ShootCommand(tank));
+        map.put(KeyEvent.VK_SPACE, new ShootCommand(tank));
     }
 }

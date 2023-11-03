@@ -1,6 +1,8 @@
 package test;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 
 import java.sql.SQLOutput;
@@ -9,29 +11,38 @@ import java.util.*;
 public class Test1 {
 
     public static void main(String[] args) {
-        TreeSet<int[]> ints = new TreeSet<>((a, b) -> a[0] - b[0]);
-        ints.add(new int[]{3});
-        for (int[] x : ints) {
-            System.out.println(x.getClass());
-        }
-        System.out.println(new boolean[]{}.getClass());
+        Movable bullet = new Bullet(10, 10);
+        bullet.moveUp();
     }
 
 }
 
-@Getter
-class Animal {
-    final String type = "test";
-    int age = 1;
-    protected String name = "3";
+@Data
+abstract class Movable {
+    protected double x;
+    protected double y;
+    protected double speed;
+
+    public Movable(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public void moveUp() {
+        System.out.println("[static binding] speed = " + speed);
+        System.out.println("[dynamic binding] speed = " + getSpeed());
+        y -= speed;  // y -= 0.0
+        y -= getSpeed();  // y -= 5.0
+        setY(getY() - getSpeed());  // y -= 5.0
+        System.out.println(getY());
+    }
 }
 
 @Getter
-class Dog extends Animal {
-    int age = 10;
+class Bullet extends Movable {
+    protected double speed = 5.0;
 
-    public synchronized void shout() {
-        System.out.println("shout");
-
+    public Bullet(double x, double y) {
+        super(x, y);
     }
 }
