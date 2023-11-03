@@ -1,4 +1,4 @@
-package javase;
+package javase.basic;
 
 public class DynamicBinding {
     public static void main(String[] args) {
