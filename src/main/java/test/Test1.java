@@ -9,10 +9,12 @@ import java.util.*;
 public class Test1 {
 
     public static void main(String[] args) {
-        Animal dog = new Dog();
-        System.out.println(dog.age);
-        System.out.println(dog.getAge());
-
+        TreeSet<int[]> ints = new TreeSet<>((a, b) -> a[0] - b[0]);
+        ints.add(new int[]{3});
+        for (int[] x : ints) {
+            System.out.println(x.getClass());
+        }
+        System.out.println(new boolean[]{}.getClass());
     }
 
 }

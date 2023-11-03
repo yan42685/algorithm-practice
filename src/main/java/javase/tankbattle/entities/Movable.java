@@ -24,15 +24,19 @@ public abstract class Movable {
         // System.out.println("speed " + getSpeed());
         switch (direction) {
             case UP:
+                setDirection(Direction.UP);
                 setY(getY() - getSpeed());
                 break;
             case DOWN:
+                setDirection(Direction.DOWN);
                 setY(getY() + getSpeed());
                 break;
             case LEFT:
+                setDirection(Direction.LEFT);
                 setX(getX() - getSpeed());
                 break;
             case RIGHT:
+                setDirection(Direction.RIGHT);
                 setX(getX() + getSpeed());
                 break;
             default:

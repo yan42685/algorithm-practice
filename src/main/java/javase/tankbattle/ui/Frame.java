@@ -14,7 +14,6 @@ public class Frame extends JFrame {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = screenSize.width;
         int height = screenSize.height;
-//        this.setBounds((int) (width * 0.2), (int) (height * 0.2), (int) (width * 0.6), (int) (height * 0.6));
         setSize((int) (width * 0.6), (int) (height * 0.6));
         // 居中
         setLocationRelativeTo(null);

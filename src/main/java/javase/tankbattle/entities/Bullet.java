@@ -7,7 +7,7 @@ import lombok.experimental.Accessors;
 
 @Accessors(chain = true)
 @Getter
-public class Bullet extends Movable implements Runnable{
+public class Bullet extends Movable implements Runnable {
     private double speed = 1.7;
     private int radius = 10;
     // 射程

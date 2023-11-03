@@ -13,15 +13,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Vector;
 
 @Getter
 public class MainPanel extends JPanel implements Runnable {
     private final HeroTank hero;
-    private final List<EnemyTank> enemyTanks;
+    // 这个容器的内容会被多个线程修改
+    private final Vector<EnemyTank> enemyTanks;
 
     public MainPanel() {
         hero = new HeroTank(200, 200, Direction.UP);
-        enemyTanks = new LinkedList<>();
+        enemyTanks = new Vector<>();
         addKeyListener(new TankCommandListener(this, hero));
 
         // 可聚焦, 聚焦这个panel之后才能监听键盘输入
