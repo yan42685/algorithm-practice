@@ -67,7 +67,7 @@ public class PaintBrush {
 
     public static void drawBullets(Graphics brush, Collection<Bullet> bullets) {
         brush.setColor(Color.ORANGE);
-        bullets.stream().filter(Bullet::isAlive).forEach(
+        bullets.forEach(
                 bullet -> {
                     int radius = bullet.getWidth() / 2;
                     int x = (int) bullet.getX();

@@ -12,8 +12,12 @@ import utils.Lambda;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Collection;
 import java.util.Vector;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Getter
@@ -75,17 +79,25 @@ public class MainPanel extends JPanel implements Runnable {
      */
     private void refreshComponentsStates() {
         // 刷新子弹状态
-        Consumer<Bullet> refreshBullet = bullet -> {
-            if (!TankUtils.willBeInsideBounds(this, bullet, bullet.getDirection())) {
-                bullet.setAlive(false);
-            }
+        Consumer<Collection<Bullet>> refreshFlyingBullets = bullets -> {
+            bullets.removeIf(bullet -> !bullet.isAlive() || !TankUtils.willBeInsideBounds(this, bullet, bullet.getDirection()));
+            // 下面两种代码会抛出 ConcurrentModificationException, 因为在迭代期间删除了集合元素；如果是显式调用iterator().next() 则不会抛异常
+//            bullets.forEach(bullet -> {
+//                boolean shouldBeRemoved = !bullet.isAlive() || !TankUtils.willBeInsideBounds(this, bullet, bullet.getDirection());
+//                if (shouldBeRemoved) {
+//                    bullets.remove(bullet);
+//                }
+//            });
+//
+//            for (Bullet bullet : bullets) {
+//                boolean shouldBeRemoved = !bullet.isAlive() || !TankUtils.willBeInsideBounds(this, bullet, bullet.getDirection());
+//                if (shouldBeRemoved) {
+//                    bullets.remove(bullet);
+//                }
+//            }
         };
-        hero.getFlyingBullets().stream()
-                .filter(Bullet::isAlive)
-                .forEach(refreshBullet);
-        enemyTanks.forEach(tank -> tank.getFlyingBullets().stream()
-                .filter(Bullet::isAlive)
-                .forEach(refreshBullet));
+        refreshFlyingBullets.accept(hero.getFlyingBullets());
+        enemyTanks.forEach(t -> refreshFlyingBullets.accept(t.getFlyingBullets()));
     }
 
 }

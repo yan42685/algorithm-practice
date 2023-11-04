@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Vector;
 
 @Getter
 public abstract class AbstractTank extends Movable {
@@ -17,6 +18,7 @@ public abstract class AbstractTank extends Movable {
     protected int minShootInterval = 500;
     // 上次射击时间
     protected long lastShootTime = 0;
+    // 容器中的元素会被多个线程访问
     protected List<Bullet> flyingBullets;
     protected TankType type;
 
@@ -45,10 +47,6 @@ public abstract class AbstractTank extends Movable {
         flyingBullets.add(bullet);
         new Thread(bullet).start();
 
-        // 清理失效的子弹
-        if (flyingBullets.size() > 50) {
-            flyingBullets.removeIf(b -> !b.isAlive());
-        }
         return true;
     }
 

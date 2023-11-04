@@ -11,13 +11,13 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 public class Bullet extends Movable implements Runnable {
     // 射程
-    private static final double RANGE = 200.0;
+    private static final double RANGE = 280.0;
     // 剩余可飞行路程
     private double remainingDistance = RANGE;
 
     public Bullet(double x, double y, Direction direction) {
         super(x, y, direction);
-        step = 4.0;
+        step = 3.0;
         width = 7;
         height = 7;
     }
