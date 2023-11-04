@@ -3,7 +3,7 @@ package javase.tankbattle.entities;
 import javase.tankbattle.constants.Direction;
 import javase.tankbattle.constants.TankType;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.ToString;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -11,10 +11,10 @@ import java.util.List;
 @Getter
 public abstract class AbstractTank extends Movable {
     // 重新声明一个于父类同名的属性 可能出现静态绑定问题
-    protected double speed = 5.0;
+    protected double step = 5.0;
     protected int health = 1;
     // 最小射击间隔, 单位毫秒
-    protected int minShootInterval = 1000;
+    protected int minShootInterval = 500;
     // 上次射击时间
     protected long lastShootTime = 0;
     protected List<Bullet> flyingBullets;
@@ -34,7 +34,8 @@ public abstract class AbstractTank extends Movable {
 
     public boolean shoot() {
         long currentTime = System.currentTimeMillis();
-        if (lastShootTime != 0 && currentTime - lastShootTime < minShootInterval) {
+        // 限制射击频率
+        if (currentTime - lastShootTime < minShootInterval) {
             return false;
         }
 
@@ -50,6 +51,7 @@ public abstract class AbstractTank extends Movable {
         }
         return true;
     }
+
 
     // 射击起点
     private Point getShootPoint() {

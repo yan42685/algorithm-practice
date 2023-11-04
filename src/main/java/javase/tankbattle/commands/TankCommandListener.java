@@ -35,6 +35,7 @@ public class TankCommandListener extends KeyAdapter {
         }
     }
 
+
     // 检查是否满足执行命令的条件
     private boolean canExecute(Command command) {
         if (command == null) {

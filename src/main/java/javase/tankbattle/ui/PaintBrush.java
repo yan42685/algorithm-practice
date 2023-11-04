@@ -5,6 +5,8 @@ import javase.tankbattle.entities.AbstractTank;
 import javase.tankbattle.entities.Bullet;
 
 import java.awt.*;
+import java.util.Collection;
+import java.util.stream.Stream;
 
 // 绘制各种图形的画笔
 public class PaintBrush {
@@ -13,17 +15,17 @@ public class PaintBrush {
     private PaintBrush() {
     }
 
-    public static void drawBackground(Graphics g, Dimension panelSize) {
-        g.setColor(Color.DARK_GRAY);
-        g.fillRect(0, 0, panelSize.width, panelSize.height);
+    public static void drawBackground(Graphics brush, Dimension panelSize) {
+        brush.setColor(Color.DARK_GRAY);
+        brush.fillRect(0, 0, panelSize.width, panelSize.height);
     }
 
-    public static void drawTank(Graphics g, AbstractTank tank) {
+    public static void drawTank(Graphics brush, AbstractTank tank) {
         TankType type = tank.getType();
         if (type.equals(TankType.HERO)) {
-            g.setColor(Color.CYAN);
+            brush.setColor(Color.CYAN);
         } else if (type.equals(TankType.ENEMY)) {
-            g.setColor(Color.ORANGE);
+            brush.setColor(Color.ORANGE);
         } else {
             throw new IllegalArgumentException(type.toString());
         }
@@ -31,40 +33,49 @@ public class PaintBrush {
         int y = (int) tank.getY();
         switch (tank.getDirection()) {
             case UP:
-                g.fill3DRect(x, y, 10, 60, false);  // 左边轮子
-                g.fill3DRect(x + 30, y, 10, 60, false);  // 右边轮子
-                g.fill3DRect(x + 10, y + 10, 20, 40, false);  // 中间矩形
-                g.fillOval(x + 10, y + 20, 20, 20);  // 中间圆形
-                g.drawLine(x + 20, y + 30, x + 20, y);  // 炮管
+                brush.fill3DRect(x, y, 10, 60, false);  // 左边轮子
+                brush.fill3DRect(x + 30, y, 10, 60, false);  // 右边轮子
+                brush.fill3DRect(x + 10, y + 10, 20, 40, false);  // 中间矩形
+                brush.fillOval(x + 10, y + 20, 20, 20);  // 中间圆形
+                brush.drawLine(x + 20, y + 30, x + 20, y);  // 炮管
                 break;
             case DOWN:
-                g.fill3DRect(x, y, 10, 60, false);
-                g.fill3DRect(x + 30, y, 10, 60, false);
-                g.fill3DRect(x + 10, y + 10, 20, 40, false);
-                g.fillOval(x + 10, y + 20, 20, 20);
-                g.drawLine(x + 20, y + 30, x + 20, y + 60);
+                brush.fill3DRect(x, y, 10, 60, false);
+                brush.fill3DRect(x + 30, y, 10, 60, false);
+                brush.fill3DRect(x + 10, y + 10, 20, 40, false);
+                brush.fillOval(x + 10, y + 20, 20, 20);
+                brush.drawLine(x + 20, y + 30, x + 20, y + 60);
                 break;
             case LEFT:
-                g.fill3DRect(x, y, 60, 10, false);
-                g.fill3DRect(x, y + 30, 60, 10, false);
-                g.fill3DRect(x + 10, y + 10, 40, 20, false);
-                g.fillOval(x + 20, y + 10, 20, 20);
-                g.drawLine(x + 30, y + 20, x, y + 20);
+                brush.fill3DRect(x, y, 60, 10, false);
+                brush.fill3DRect(x, y + 30, 60, 10, false);
+                brush.fill3DRect(x + 10, y + 10, 40, 20, false);
+                brush.fillOval(x + 20, y + 10, 20, 20);
+                brush.drawLine(x + 30, y + 20, x, y + 20);
                 break;
             case RIGHT:
-                g.fill3DRect(x, y, 60, 10, false);
-                g.fill3DRect(x, y + 30, 60, 10, false);
-                g.fill3DRect(x + 10, y + 10, 40, 20, false);
-                g.fillOval(x + 20, y + 10, 20, 20);
-                g.drawLine(x + 30, y + 20, x + 60, y + 20);
+                brush.fill3DRect(x, y, 60, 10, false);
+                brush.fill3DRect(x, y + 30, 60, 10, false);
+                brush.fill3DRect(x + 10, y + 10, 40, 20, false);
+                brush.fillOval(x + 20, y + 10, 20, 20);
+                brush.drawLine(x + 30, y + 20, x + 60, y + 20);
                 break;
             default:
                 throw new IllegalArgumentException(tank.getDirection().toString());
         }
     }
 
-    public static void drawBullets(Iterable<Bullet> bullets) {
-
+    public static void drawBullets(Graphics brush, Collection<Bullet> bullets) {
+        brush.setColor(Color.ORANGE);
+        bullets.stream().filter(Bullet::isAlive).forEach(
+                bullet -> {
+                    int radius = bullet.getWidth() / 2;
+                    int x = (int) bullet.getX();
+                    int y = (int) bullet.getY();
+                    // TODO: 按方向画
+                    brush.fillOval(x - radius, y - radius, radius * 2, radius * 2);
+                }
+        );
 
     }
 }

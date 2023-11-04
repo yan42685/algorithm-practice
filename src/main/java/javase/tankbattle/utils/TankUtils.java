@@ -10,6 +10,9 @@ public class TankUtils {
     private TankUtils() {
     }
 
+    /**
+     * 下次移动是否在panel内
+     */
     public static boolean willBeInsideBounds(JPanel panel, Movable movable, Direction nextDirection) {
         Point nextPoint = movable.getNextPoint(nextDirection);
         // 向上状态的宽与高
@@ -17,6 +20,7 @@ public class TankUtils {
         int height;
         double x = nextPoint.getX();
         double y = nextPoint.getY();
+        // 根据方向确定边界
         switch (nextDirection) {
             case UP:
             case DOWN:
