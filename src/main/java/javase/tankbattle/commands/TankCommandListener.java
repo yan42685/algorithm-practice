@@ -2,6 +2,9 @@ package javase.tankbattle.commands;
 
 import javase.tankbattle.constants.Direction;
 import javase.tankbattle.entities.AbstractTank;
+import javase.tankbattle.entities.Movable;
+import javase.tankbattle.utils.TankUtils;
+import lombok.extern.log4j.Log4j;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
@@ -38,8 +41,13 @@ public class TankCommandListener extends KeyAdapter {
         }
 
         if (command instanceof MoveCommand) {
-            // TODO: 检测与其他坦克碰撞、检测边界
-            return true;
+            // TODO: 检测与其他坦克碰撞
+            Movable movable = ((MoveCommand) command).getMovable();
+            Direction nextDirection = ((MoveCommand) command).getNextDirection();
+
+//            System.out.println(movable);
+//            System.out.println(nextDirection);
+            return TankUtils.willBeInsideBounds(panel, movable, nextDirection);
         } else {
             return true;
         }
@@ -58,4 +66,5 @@ public class TankCommandListener extends KeyAdapter {
         map.put(KeyEvent.VK_J, new ShootCommand(tank));
         map.put(KeyEvent.VK_SPACE, new ShootCommand(tank));
     }
+
 }

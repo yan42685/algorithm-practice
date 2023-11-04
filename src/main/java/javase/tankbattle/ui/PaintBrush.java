@@ -2,6 +2,7 @@ package javase.tankbattle.ui;
 
 import javase.tankbattle.constants.TankType;
 import javase.tankbattle.entities.AbstractTank;
+import javase.tankbattle.entities.Bullet;
 
 import java.awt.*;
 
@@ -24,7 +25,7 @@ public class PaintBrush {
         } else if (type.equals(TankType.ENEMY)) {
             g.setColor(Color.ORANGE);
         } else {
-            throw new IllegalArgumentException("Illegal TankType: " + type);
+            throw new IllegalArgumentException(type.toString());
         }
         int x = (int) tank.getX();
         int y = (int) tank.getY();
@@ -58,7 +59,12 @@ public class PaintBrush {
                 g.drawLine(x + 30, y + 20, x + 60, y + 20);
                 break;
             default:
-                throw new IllegalArgumentException("Illegal direction: " + tank.getDirection());
+                throw new IllegalArgumentException(tank.getDirection().toString());
         }
+    }
+
+    public static void drawBullets(Iterable<Bullet> bullets) {
+
+
     }
 }

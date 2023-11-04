@@ -1,7 +1,9 @@
 package javase.tankbattle.commands;
 
 import javase.tankbattle.entities.AbstractTank;
+import lombok.Getter;
 
+@Getter
 public class ShootCommand implements Command {
     private AbstractTank tank;
 
@@ -10,6 +12,6 @@ public class ShootCommand implements Command {
     }
     @Override
     public boolean execute() {
-        return false;
+        return tank.shoot();
     }
 }
