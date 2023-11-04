@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 来源：https://www.cnblogs.com/daen/p/17272731.html -->
+<!-- 只显示Info、Warn、Error，不显示 Trace、Debug-->
+
+<!-- 日志异步输出 -->
+<!-- 日志每天自动归档一次 -->
+<!-- 日志文件达到一定大小时，也会进行归档 -->
+<!-- 归档时，进行zip压缩 -->
+<!-- 归档的日志放在 yyyy-MM-dd 文件夹中 -->
+<!-- 当归档的日志文件总大小达到指定大小时，将依次删除最早的归档日志文件 -->
+<!-- 归档的日志文件 保留指定的天数后，自动进行删除 -->
+<configuration>
+  <property name="log.path" value="./log"/>
+<!--  换行输出 -->
+<!--  <property name="console.log.pattern"-->
+<!--            value="%yellow([%d{yyyy-MM-dd HH:mm:ss:SSS}]) %green([%thread]) %highlight([ %-5level ]) → %boldMagenta([%logger{36}]%n) %msg%n"/>-->
+
+<!--  不换行输出, 省略日期-->
+  <property name="console.log.pattern"
+            value="%yellow([%d{HH:mm:ss:SSS}]) %green([%thread]) %highlight([ %-5level ]) → %boldMagenta([%logger{36}]) %msg%n"/>
+  <property name="log.pattern" value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"/>
+
+
+  <!-- IDE控制台 输出 -->
+  <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>${console.log.pattern}</pattern>
+      <charset>utf-8</charset>
+    </encoder>
+  </appender>
+
+  <!--  暂时禁用日志写出-->
+
+<!--  &lt;!&ndash; 控制台 日志写出 &ndash;&gt;-->
+<!--  <appender name="file_console" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--    <file>${log.path}/console.log</file>-->
+<!--    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+<!--      &lt;!&ndash; 按时间归档的同时，也按文件大小来归档 &ndash;&gt;-->
+<!--      <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
+<!--        &lt;!&ndash; 日志文件归档大小，当日志文件大小达到时，将进行归档 &ndash;&gt;-->
+<!--        <maxFileSize>100MB</maxFileSize>-->
+<!--      </timeBasedFileNamingAndTriggeringPolicy>-->
+<!--      &lt;!&ndash; 归档日志文件名格式 &ndash;&gt;-->
+<!--      <fileNamePattern>${log.path}/logs/%d{yyyy-MM-dd}/console.%i.log.zip</fileNamePattern>-->
+<!--      &lt;!&ndash; 归档日志文件保留时间/天 &ndash;&gt;-->
+<!--      <maxHistory>7</maxHistory>-->
+<!--      &lt;!&ndash; 所有归档日志文件的总大小，超出后，将依次删除最早的归档日志文件 &ndash;&gt;-->
+<!--      <totalSizeCap>1GB</totalSizeCap>-->
+<!--    </rollingPolicy>-->
+<!--    <encoder>-->
+<!--      <pattern>${log.pattern}</pattern>-->
+<!--      <charset>utf-8</charset>-->
+<!--    </encoder>-->
+<!--    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
+<!--      &lt;!&ndash; 过滤的级别 &ndash;&gt;-->
+<!--      <level>INFO</level>-->
+<!--    </filter>-->
+<!--  </appender>-->
+
+<!--  &lt;!&ndash; info 日志写出 &ndash;&gt;-->
+<!--  <appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--    <file>${log.path}/info.log</file>-->
+<!--    &lt;!&ndash; 按时间归档的同时，也按文件大小来归档 &ndash;&gt;-->
+<!--    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+<!--      &lt;!&ndash; 按时间回滚的同时，按文件大小来回滚 &ndash;&gt;-->
+<!--      <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
+<!--        &lt;!&ndash; 日志文件归档大小，当日志文件大小达到时，将进行归档 &ndash;&gt;-->
+<!--        <maxFileSize>100MB</maxFileSize>-->
+<!--      </timeBasedFileNamingAndTriggeringPolicy>-->
+<!--      &lt;!&ndash; 归档日志文件名格式 &ndash;&gt;-->
+<!--      <fileNamePattern>${log.path}/logs/%d{yyyy-MM-dd}/info.%i.log.zip</fileNamePattern>-->
+<!--      &lt;!&ndash; 归档日志文件保留时间/天 &ndash;&gt;-->
+<!--      <maxHistory>30</maxHistory>-->
+<!--      &lt;!&ndash; 所有归档日志文件的总大小，超出后，将依次删除最早的归档日志文件 &ndash;&gt;-->
+<!--      <totalSizeCap>2GB</totalSizeCap>-->
+<!--    </rollingPolicy>-->
+<!--    <encoder>-->
+<!--      <pattern>${log.pattern}</pattern>-->
+<!--    </encoder>-->
+<!--    <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--      &lt;!&ndash; 过滤的级别 &ndash;&gt;-->
+<!--      <level>INFO</level>-->
+<!--      &lt;!&ndash; 匹配时的操作：接收（记录） &ndash;&gt;-->
+<!--      <onMatch>ACCEPT</onMatch>-->
+<!--      &lt;!&ndash; 不匹配时的操作：拒绝（不记录） &ndash;&gt;-->
+<!--      <onMismatch>DENY</onMismatch>-->
+<!--    </filter>-->
+<!--  </appender>-->
+
+<!--  &lt;!&ndash; warn 日志写出 &ndash;&gt;-->
+<!--  <appender name="file_warn" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--    <file>${log.path}/warn.log</file>-->
+<!--    &lt;!&ndash; 按时间归档的同时，也按文件大小来归档 &ndash;&gt;-->
+<!--    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+<!--      &lt;!&ndash; 按时间回滚的同时，按文件大小来回滚 &ndash;&gt;-->
+<!--      <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
+<!--        &lt;!&ndash; 日志文件归档大小，当日志文件大小达到时，将进行归档 &ndash;&gt;-->
+<!--        <maxFileSize>100MB</maxFileSize>-->
+<!--      </timeBasedFileNamingAndTriggeringPolicy>-->
+<!--      &lt;!&ndash; 归档日志文件名格式 &ndash;&gt;-->
+<!--      <fileNamePattern>${log.path}/logs/%d{yyyy-MM-dd}/warn.%i.log.zip</fileNamePattern>-->
+<!--      &lt;!&ndash; 归档日志文件保留时间/天 &ndash;&gt;-->
+<!--      <maxHistory>60</maxHistory>-->
+<!--      &lt;!&ndash; 所有归档日志文件的总大小，超出后，将依次删除最早的归档日志文件 &ndash;&gt;-->
+<!--      <totalSizeCap>5GB</totalSizeCap>-->
+<!--    </rollingPolicy>-->
+<!--    <encoder>-->
+<!--      <pattern>${log.pattern}</pattern>-->
+<!--    </encoder>-->
+<!--    <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--      &lt;!&ndash; 过滤的级别 &ndash;&gt;-->
+<!--      <level>WARN</level>-->
+<!--      &lt;!&ndash; 匹配时的操作：接收（记录） &ndash;&gt;-->
+<!--      <onMatch>ACCEPT</onMatch>-->
+<!--      &lt;!&ndash; 不匹配时的操作：拒绝（不记录） &ndash;&gt;-->
+<!--      <onMismatch>DENY</onMismatch>-->
+<!--    </filter>-->
+<!--  </appender>-->
+
+<!--  &lt;!&ndash; error 日志写出 &ndash;&gt;-->
+<!--  <appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--    <file>${log.path}/error.log</file>-->
+<!--    &lt;!&ndash; 按时间归档的同时，也按文件大小来归档 &ndash;&gt;-->
+<!--    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+<!--      &lt;!&ndash; 按时间回滚的同时，按文件大小来回滚 &ndash;&gt;-->
+<!--      <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
+<!--        &lt;!&ndash; 日志文件归档大小，当日志文件大小达到时，将进行归档 &ndash;&gt;-->
+<!--        <maxFileSize>100MB</maxFileSize>-->
+<!--      </timeBasedFileNamingAndTriggeringPolicy>-->
+<!--      &lt;!&ndash; 归档日志文件名格式 &ndash;&gt;-->
+<!--      <fileNamePattern>${log.path}/logs/%d{yyyy-MM-dd}/error.%i.log.zip</fileNamePattern>-->
+<!--      &lt;!&ndash; 归档日志文件保留时间/天 &ndash;&gt;-->
+<!--      <maxHistory>90</maxHistory>-->
+<!--      &lt;!&ndash; 所有归档日志文件的总大小，超出后，将依次删除最早的归档日志文件 &ndash;&gt;-->
+<!--      <totalSizeCap>10GB</totalSizeCap>-->
+<!--    </rollingPolicy>-->
+<!--    <encoder>-->
+<!--      <pattern>${log.pattern}</pattern>-->
+<!--    </encoder>-->
+<!--    <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--      &lt;!&ndash; 过滤的级别 &ndash;&gt;-->
+<!--      <level>ERROR</level>-->
+<!--      &lt;!&ndash; 匹配时的操作：接收（记录） &ndash;&gt;-->
+<!--      <onMatch>ACCEPT</onMatch>-->
+<!--      &lt;!&ndash; 不匹配时的操作：拒绝（不记录） &ndash;&gt;-->
+<!--      <onMismatch>DENY</onMismatch>-->
+<!--    </filter>-->
+<!--  </appender>-->
+
+  <!-- info异步输出 -->
+  <appender name="async_info" class="ch.qos.logback.classic.AsyncAppender">
+    <!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
+    <discardingThreshold>0</discardingThreshold>
+    <!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
+    <queueSize>512</queueSize>
+    <!-- 添加附加的appender,最多只能添加一个 -->
+    <appender-ref ref="file_info"/>
+  </appender>
+
+  <!-- warn异步输出 -->
+  <appender name="async_warn" class="ch.qos.logback.classic.AsyncAppender">
+    <!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
+    <discardingThreshold>0</discardingThreshold>
+    <!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
+    <queueSize>512</queueSize>
+    <!-- 添加附加的appender,最多只能添加一个 -->
+    <appender-ref ref="file_warn"/>
+  </appender>
+
+  <!-- error异步输出 -->
+  <appender name="async_error" class="ch.qos.logback.classic.AsyncAppender">
+    <!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
+    <discardingThreshold>0</discardingThreshold>
+    <!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
+    <queueSize>512</queueSize>
+    <!-- 添加附加的appender,最多只能添加一个 -->
+    <appender-ref ref="file_error"/>
+  </appender>
+
+
+  <!--系统操作日志-->
+  <root level="info">
+    <appender-ref ref="console" />
+    <appender-ref ref="async_info" />
+    <appender-ref ref="async_warn" />
+    <appender-ref ref="async_error" />
+    <appender-ref ref="file_console" />
+  </root>
+
+</configuration>

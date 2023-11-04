@@ -16,7 +16,7 @@
         <reflections.version>0.9.12</reflections.version>
         <lombok.version>1.18.10</lombok.version>
         <org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
-        <!-- 自动增加另外两个依赖： logback-core 和 slf4j-api-->
+        <!-- 自动增加另外两个依赖： logback-core 和 slf4j-api, 可以独立配合lombok使用@Slf4j, 配置文件在src/main/resources/logback.xml  -->
         <logback-classic.version>1.2.3</logback-classic.version>
         <apache-commons-lang3.version>3.8.1</apache-commons-lang3.version>
         <hutool.all.version>5.5.2</hutool.all.version>

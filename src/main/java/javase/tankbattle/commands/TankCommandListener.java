@@ -4,7 +4,7 @@ import javase.tankbattle.constants.Direction;
 import javase.tankbattle.entities.AbstractTank;
 import javase.tankbattle.entities.Movable;
 import javase.tankbattle.utils.TankUtils;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
@@ -16,6 +16,7 @@ import java.util.Map;
  * 命令模式 + 策略模式
  * 命令模式 将命令的发送者和接受者逻辑解耦
  */
+@Slf4j
 public class TankCommandListener extends KeyAdapter {
     private final Map<Integer, Command> map;
     private final JPanel panel;
@@ -45,8 +46,8 @@ public class TankCommandListener extends KeyAdapter {
             Movable movable = ((MoveCommand) command).getMovable();
             Direction nextDirection = ((MoveCommand) command).getNextDirection();
 
-//            System.out.println(movable);
-//            System.out.println(nextDirection);
+            log.info(movable.toString());
+            log.info(nextDirection.toString());
             return TankUtils.willBeInsideBounds(panel, movable, nextDirection);
         } else {
             return true;
