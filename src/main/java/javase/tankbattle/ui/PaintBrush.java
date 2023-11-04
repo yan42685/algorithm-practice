@@ -1,14 +1,15 @@
 package javase.tankbattle.ui;
 
-import javase.tankbattle.constants.TankType;
+import javase.tankbattle.constants.FactionEnum;
 import javase.tankbattle.entities.AbstractTank;
 import javase.tankbattle.entities.Bullet;
 
 import java.awt.*;
 import java.util.Collection;
-import java.util.stream.Stream;
 
-// 绘制各种图形的画笔
+/**
+ * 绘制各种图形的画笔
+ */
 public class PaintBrush {
 
     // 阻止被实例化
@@ -21,13 +22,16 @@ public class PaintBrush {
     }
 
     public static void drawTank(Graphics brush, AbstractTank tank) {
-        TankType type = tank.getType();
-        if (type.equals(TankType.HERO)) {
+        if (!tank.isAlive()) {
+            return;
+        }
+        FactionEnum faction = tank.getFaction();
+        if (faction.equals(FactionEnum.HERO)) {
             brush.setColor(Color.CYAN);
-        } else if (type.equals(TankType.ENEMY)) {
+        } else if (faction.equals(FactionEnum.ENEMY)) {
             brush.setColor(Color.ORANGE);
         } else {
-            throw new IllegalArgumentException(type.toString());
+            throw new IllegalArgumentException(faction.toString());
         }
         int x = (int) tank.getX();
         int y = (int) tank.getY();
@@ -67,12 +71,11 @@ public class PaintBrush {
 
     public static void drawBullets(Graphics brush, Collection<Bullet> bullets) {
         brush.setColor(Color.ORANGE);
-        bullets.forEach(
+        bullets.stream().filter(Bullet::isAlive).forEach(
                 bullet -> {
                     int radius = bullet.getWidth() / 2;
                     int x = (int) bullet.getX();
                     int y = (int) bullet.getY();
-                    // TODO: 按方向画
                     brush.fillOval(x - radius, y - radius, radius * 2, radius * 2);
                 }
         );

@@ -2,23 +2,20 @@ package javase.tankbattle.ui;
 
 import javase.tankbattle.commands.TankCommandListener;
 import javase.tankbattle.constants.Constants;
-import javase.tankbattle.constants.Direction;
+import javase.tankbattle.constants.DirectionEnum;
+import javase.tankbattle.constants.FactionEnum;
 import javase.tankbattle.entities.Bullet;
 import javase.tankbattle.entities.EnemyTank;
 import javase.tankbattle.entities.HeroTank;
 import javase.tankbattle.utils.TankUtils;
 import lombok.Getter;
-import utils.Lambda;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Vector;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 @Getter
 public class MainPanel extends JPanel implements Runnable {
@@ -54,50 +51,62 @@ public class MainPanel extends JPanel implements Runnable {
     @Override
     public void run() {
         while (true) {
-            // 定时刷新状态与重绘
+            // 定时更新状态与重绘
             try {
                 Thread.sleep(Constants.REPAINT_INTERVAL);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            refreshComponentsStates();
+            updateStates();
             repaint();
         }
     }
 
 
     private void initTanks() {
-        hero = new HeroTank(200, 200, Direction.UP);
+        hero = new HeroTank(200, 200, DirectionEnum.UP);
         enemyTanks = new Vector<>();
         for (int i = 1; i <= ENEMY_COUNT; i++) {
-            enemyTanks.add(new EnemyTank(100 * i, 50, Direction.random()));
+            enemyTanks.add(new EnemyTank(100 * i, 50, DirectionEnum.random()));
         }
     }
 
     /**
      * 刷新panel上所有组件状态
      */
-    private void refreshComponentsStates() {
-        // 刷新子弹状态
-        Consumer<Collection<Bullet>> refreshFlyingBullets = bullets -> {
-            bullets.removeIf(bullet -> !bullet.isAlive() || !TankUtils.willBeInsideBounds(this, bullet, bullet.getDirection()));
-            // 下面两种代码会抛出 ConcurrentModificationException, 因为在迭代期间删除了集合元素；如果是显式调用iterator().next() 则不会抛异常
-//            bullets.forEach(bullet -> {
-//                boolean shouldBeRemoved = !bullet.isAlive() || !TankUtils.willBeInsideBounds(this, bullet, bullet.getDirection());
-//                if (shouldBeRemoved) {
-//                    bullets.remove(bullet);
-//                }
-//            });
-//
-//            for (Bullet bullet : bullets) {
-//                boolean shouldBeRemoved = !bullet.isAlive() || !TankUtils.willBeInsideBounds(this, bullet, bullet.getDirection());
-//                if (shouldBeRemoved) {
-//                    bullets.remove(bullet);
-//                }
-//            }
+    private void updateStates() {
+        // 遍历子弹的时候刷新状态
+        Consumer<Collection<Bullet>> updateStatesByBullets = bullets -> {
+            Iterator<Bullet> iterator = bullets.iterator();
+            while (iterator.hasNext()) {
+                Bullet bullet = iterator.next();
+                // 清除失效或越界bullet
+                boolean shouldBeRemoved = !bullet.isAlive() || !TankUtils.willBeInsideBounds(this, bullet, bullet.getDirection());
+                if (shouldBeRemoved) {
+                    // 迭代期间用集合对象删除元素会抛出 ConcurrentModificationException (forEach, 增强for循环，while迭代，都会如此)
+                    // bullets.remove(bullet);
+                    iterator.remove();
+                    continue;
+                }
+
+                // 清除有效击中坦克的bullet和tank
+                FactionEnum bulletFaction = bullet.getFaction();
+                if (!bulletFaction.equals(FactionEnum.HERO) && TankUtils.doBulletIntersectTank(bullet, hero)) {
+                    iterator.remove();
+                    hero.setAlive(false);
+                } else if (!bulletFaction.equals(FactionEnum.ENEMY)) {
+                    EnemyTank enemyTank = enemyTanks.stream()
+                            .filter(tank -> TankUtils.doBulletIntersectTank(bullet, tank))
+                            .findAny().orElse(null);
+                    if (enemyTank != null) {
+                        iterator.remove();
+                        enemyTank.setAlive(false);
+                    }
+                }
+            }
         };
-        refreshFlyingBullets.accept(hero.getFlyingBullets());
-        enemyTanks.forEach(t -> refreshFlyingBullets.accept(t.getFlyingBullets()));
+        updateStatesByBullets.accept(hero.getFlyingBullets());
+        enemyTanks.forEach(t -> updateStatesByBullets.accept(t.getFlyingBullets()));
     }
 
 }

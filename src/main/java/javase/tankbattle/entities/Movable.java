@@ -1,15 +1,14 @@
 package javase.tankbattle.entities;
 
-import javase.tankbattle.constants.Direction;
+import javase.tankbattle.constants.DirectionEnum;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 public abstract class Movable {
     protected double x;
     protected double y;
-    protected Direction direction;
+    protected DirectionEnum direction;
     // 步长
     protected double step;
     protected int width;
@@ -17,7 +16,7 @@ public abstract class Movable {
     @Setter
     protected boolean isAlive = true;
 
-    public Movable(double x, double y, Direction direction) {
+    public Movable(double x, double y, DirectionEnum direction) {
         this.x = x;
         this.y = y;
         this.direction = direction;
@@ -26,7 +25,7 @@ public abstract class Movable {
     /**
      * 指定方向移动
      */
-    public void move(Direction nextDirection) {
+    public void move(DirectionEnum nextDirection) {
         Point nextPoint = getNextPoint(nextDirection);
         x = nextPoint.getX();
         y = nextPoint.getY();
@@ -36,7 +35,7 @@ public abstract class Movable {
     /**
      * 下一次移动的目的坐标, 用于在移动前检测是否可移动
      */
-    public Point getNextPoint(Direction nextDirection) {
+    public Point getNextPoint(DirectionEnum nextDirection) {
         // 静态绑定：只要子类对象的编译类型是Movable，就会输出0.0
         // System.out.println("step: " + step);
         // 动态绑定, 输出值取决于动态类型

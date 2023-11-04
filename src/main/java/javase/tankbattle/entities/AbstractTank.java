@@ -1,13 +1,11 @@
 package javase.tankbattle.entities;
 
-import javase.tankbattle.constants.Direction;
-import javase.tankbattle.constants.TankType;
+import javase.tankbattle.constants.DirectionEnum;
+import javase.tankbattle.constants.FactionEnum;
 import lombok.Getter;
-import lombok.ToString;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Vector;
 
 @Getter
 public abstract class AbstractTank extends Movable {
@@ -20,9 +18,10 @@ public abstract class AbstractTank extends Movable {
     protected long lastShootTime = 0;
     // 容器中的元素会被多个线程访问
     protected List<Bullet> flyingBullets;
-    protected TankType type;
+    // 阵营
+    protected FactionEnum faction;
 
-    public AbstractTank(double x, double y, Direction direction) {
+    public AbstractTank(double x, double y, DirectionEnum direction) {
         super(x, y, direction);
         // 向上状态的宽与高
         // 宽度为 10 + 20 + 10
@@ -30,7 +29,7 @@ public abstract class AbstractTank extends Movable {
         // 高度为 60
         height = 60;
         this.flyingBullets = new LinkedList<>();
-        setType();
+        setFaction();
     }
 
 
@@ -43,7 +42,7 @@ public abstract class AbstractTank extends Movable {
 
         lastShootTime = currentTime;
         Point shootPoint = getShootPoint();
-        Bullet bullet = new Bullet(shootPoint.getX(), shootPoint.getY(), direction);
+        Bullet bullet = new Bullet(shootPoint.getX(), shootPoint.getY(), direction, faction);
         flyingBullets.add(bullet);
         new Thread(bullet).start();
 
@@ -67,6 +66,6 @@ public abstract class AbstractTank extends Movable {
         }
     }
 
-    protected abstract void setType();
+    protected abstract void setFaction();
 
 }

@@ -1,6 +1,6 @@
 package javase.tankbattle.commands;
 
-import javase.tankbattle.constants.Direction;
+import javase.tankbattle.constants.DirectionEnum;
 import javase.tankbattle.entities.AbstractTank;
 import javase.tankbattle.entities.Movable;
 import javase.tankbattle.utils.TankUtils;
@@ -45,7 +45,7 @@ public class TankCommandListener extends KeyAdapter {
         if (command instanceof MoveCommand) {
             // TODO: 检测与其他坦克碰撞
             Movable movable = ((MoveCommand) command).getMovable();
-            Direction nextDirection = ((MoveCommand) command).getNextDirection();
+            DirectionEnum nextDirection = ((MoveCommand) command).getNextDirection();
 
             log.info(movable.toString());
             log.info(nextDirection.toString());
@@ -56,14 +56,14 @@ public class TankCommandListener extends KeyAdapter {
     }
 
     private void registerCommands(AbstractTank tank) {
-        map.put(KeyEvent.VK_W, new MoveCommand(tank, Direction.UP));
-        map.put(KeyEvent.VK_S, new MoveCommand(tank, Direction.DOWN));
-        map.put(KeyEvent.VK_A, new MoveCommand(tank, Direction.LEFT));
-        map.put(KeyEvent.VK_D, new MoveCommand(tank, Direction.RIGHT));
-        map.put(KeyEvent.VK_UP, new MoveCommand(tank, Direction.UP));
-        map.put(KeyEvent.VK_DOWN, new MoveCommand(tank, Direction.DOWN));
-        map.put(KeyEvent.VK_LEFT, new MoveCommand(tank, Direction.LEFT));
-        map.put(KeyEvent.VK_RIGHT, new MoveCommand(tank, Direction.RIGHT));
+        map.put(KeyEvent.VK_W, new MoveCommand(tank, DirectionEnum.UP));
+        map.put(KeyEvent.VK_S, new MoveCommand(tank, DirectionEnum.DOWN));
+        map.put(KeyEvent.VK_A, new MoveCommand(tank, DirectionEnum.LEFT));
+        map.put(KeyEvent.VK_D, new MoveCommand(tank, DirectionEnum.RIGHT));
+        map.put(KeyEvent.VK_UP, new MoveCommand(tank, DirectionEnum.UP));
+        map.put(KeyEvent.VK_DOWN, new MoveCommand(tank, DirectionEnum.DOWN));
+        map.put(KeyEvent.VK_LEFT, new MoveCommand(tank, DirectionEnum.LEFT));
+        map.put(KeyEvent.VK_RIGHT, new MoveCommand(tank, DirectionEnum.RIGHT));
 
         map.put(KeyEvent.VK_J, new ShootCommand(tank));
         map.put(KeyEvent.VK_SPACE, new ShootCommand(tank));

@@ -1,5 +1,8 @@
 package javase.tankbattle.constants;
 
-public enum TankType {
+/**
+ * 阵营枚举
+ */
+public enum FactionEnum {
     HERO, ENEMY;
 }

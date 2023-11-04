@@ -1,17 +1,17 @@
 package javase.tankbattle.entities;
 
-import javase.tankbattle.constants.Direction;
-import javase.tankbattle.constants.TankType;
+import javase.tankbattle.constants.DirectionEnum;
+import javase.tankbattle.constants.FactionEnum;
 import lombok.ToString;
 
 @ToString(callSuper = true)
 public class EnemyTank extends AbstractTank {
-    public EnemyTank(double x, double y, Direction direction) {
+    public EnemyTank(double x, double y, DirectionEnum direction) {
         super(x, y, direction);
     }
 
     @Override
-    protected void setType() {
-        this.type = TankType.ENEMY;
+    protected void setFaction() {
+        this.faction = FactionEnum.ENEMY;
     }
 }
