@@ -16,21 +16,14 @@ public class TankUtils {
      * 下次移动是否越界
      */
     public static boolean willBeOutOfBounds(JPanel panel, Movable movable, DirectionEnum nextDirection) {
-        return !willBeInsideBounds(panel, movable, nextDirection);
-    }
-    /**
-     * 下次移动是否在panel内
-     */
-    private static boolean willBeInsideBounds(JPanel panel, Movable movable, DirectionEnum nextDirection) {
         Point nextPoint = movable.getNextPoint(nextDirection);
         // 根据方向获取长宽
         int width = (int) realWidth(movable.getWidth(), movable.getHeight(), nextDirection);
         int height = (int) realHeight(movable.getWidth(), movable.getHeight(), nextDirection);
         double x = nextPoint.getX();
         double y = nextPoint.getY();
-        return x >= 0 && x + width <= panel.getWidth() && y >= 0 && y + height <= panel.getHeight();
+        return x < 0 || x + width > panel.getWidth() || y < 0 || y + height > panel.getHeight();
     }
-
 
     /**
      * 子弹是否已经击中坦克
