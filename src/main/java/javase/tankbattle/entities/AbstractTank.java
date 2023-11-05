@@ -3,9 +3,12 @@ package javase.tankbattle.entities;
 import javase.tankbattle.constants.DirectionEnum;
 import javase.tankbattle.constants.FactionEnum;
 import lombok.Getter;
+import lombok.NonNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 public abstract class AbstractTank extends Movable {
@@ -16,8 +19,6 @@ public abstract class AbstractTank extends Movable {
     protected int minShootInterval = 500;
     // 上次射击时间
     protected long lastShootTime = 0;
-    // 容器中的元素会被多个线程访问
-    protected List<Bullet> flyingBullets;
     // 阵营
     protected FactionEnum faction;
 
@@ -28,25 +29,24 @@ public abstract class AbstractTank extends Movable {
         width = 40;
         // 高度为 60
         height = 60;
-        this.flyingBullets = new LinkedList<>();
         setFaction();
     }
 
 
-    public boolean shoot() {
+
+    public @Nullable Bullet shoot() {
         long currentTime = System.currentTimeMillis();
         // 限制射击频率
         if (currentTime - lastShootTime < minShootInterval) {
-            return false;
+//            return null;
         }
 
         lastShootTime = currentTime;
         Point shootPoint = getShootPoint();
         Bullet bullet = new Bullet(shootPoint.getX(), shootPoint.getY(), direction, faction);
-        flyingBullets.add(bullet);
         new Thread(bullet).start();
 
-        return true;
+        return bullet;
     }
 
 

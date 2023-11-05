@@ -2,7 +2,9 @@ package javase.tankbattle.commands;
 
 import javase.tankbattle.constants.DirectionEnum;
 import javase.tankbattle.entities.AbstractTank;
+import javase.tankbattle.entities.Bullet;
 import javase.tankbattle.entities.Movable;
+import javase.tankbattle.ui.MainPanel;
 import javase.tankbattle.utils.TankUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -11,6 +13,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * 命令模式 + 策略模式
@@ -19,9 +22,9 @@ import java.util.Map;
 @Slf4j
 public class TankCommandListener extends KeyAdapter {
     private final Map<Integer, Command> map;
-    private final JPanel panel;
+    private final MainPanel panel;
 
-    public TankCommandListener(JPanel panel, AbstractTank tank) {
+    public TankCommandListener(MainPanel panel, AbstractTank tank) {
         map = new HashMap<>();
         this.panel = panel;
         registerCommands(tank);
@@ -65,8 +68,8 @@ public class TankCommandListener extends KeyAdapter {
         map.put(KeyEvent.VK_LEFT, new MoveCommand(tank, DirectionEnum.LEFT));
         map.put(KeyEvent.VK_RIGHT, new MoveCommand(tank, DirectionEnum.RIGHT));
 
-        map.put(KeyEvent.VK_J, new ShootCommand(tank));
-        map.put(KeyEvent.VK_SPACE, new ShootCommand(tank));
+        map.put(KeyEvent.VK_J, new ShootCommand(tank, panel.getBulletQueue()));
+        map.put(KeyEvent.VK_SPACE, new ShootCommand(tank, panel.getBulletQueue()));
     }
 
 }

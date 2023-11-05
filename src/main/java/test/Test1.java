@@ -7,12 +7,13 @@ import lombok.Getter;
 
 import java.sql.SQLOutput;
 import java.util.*;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class Test1 {
 
     public static void main(String[] args) {
-        Movable bullet = new Bullet(10, 10);
-        bullet.moveUp();
+        new LinkedBlockingQueue<>();
     }
 
 }

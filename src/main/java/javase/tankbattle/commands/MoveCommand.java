@@ -16,6 +16,9 @@ public class MoveCommand implements Command {
 
     @Override
     public boolean execute() {
+        if (!movable.isAlive()) {
+            return false;
+        }
         movable.move(nextDirection);
         return true;
     }
