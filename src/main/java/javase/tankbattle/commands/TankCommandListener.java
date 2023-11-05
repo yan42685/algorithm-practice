@@ -2,9 +2,8 @@ package javase.tankbattle.commands;
 
 import javase.tankbattle.constants.DirectionEnum;
 import javase.tankbattle.entities.AbstractTank;
-import javase.tankbattle.entities.Movable;
 import javase.tankbattle.ui.MainPanel;
-import javase.tankbattle.utils.TankUtils;
+import javase.tankbattle.utils.CommandManager;
 import lombok.extern.slf4j.Slf4j;
 
 import java.awt.event.KeyAdapter;
@@ -30,38 +29,9 @@ public class TankCommandListener extends KeyAdapter {
     @Override
     public void keyPressed(KeyEvent e) {
         Command command = map.get(e.getKeyCode());
-        if (canExecute(command)) {
-            command.execute();
-        }
+        CommandManager.INSTANCE.checkAndExecute(command);
     }
 
-
-    // 检查是否满足执行命令的条件
-    private boolean canExecute(Command command) {
-        if (command == null) {
-            return false;
-        }
-
-        if (command instanceof MoveCommand) {
-            // 越界检测
-            Movable movable = ((MoveCommand) command).getMovable();
-            DirectionEnum nextDirection = ((MoveCommand) command).getNextDirection();
-            if (TankUtils.willBeOutOfBounds(panel, movable, nextDirection)) {
-                return false;
-            }
-            if (movable instanceof AbstractTank) {
-                // 坦克碰撞检测
-                AbstractTank tank = (AbstractTank) movable;
-                boolean willIntersect = panel.getTanks().stream()
-                        .filter(AbstractTank::isAlive)
-                        .anyMatch(t -> TankUtils.willTanksIntersect(tank, nextDirection, t));
-                if (willIntersect) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
 
     private void registerCommands(AbstractTank tank) {
         map.put(KeyEvent.VK_W, new MoveCommand(tank, DirectionEnum.UP));
