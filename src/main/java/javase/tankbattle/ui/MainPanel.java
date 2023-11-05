@@ -89,7 +89,7 @@ public class MainPanel extends JPanel implements Runnable {
         while (bulletIterator.hasNext()) {
             Bullet bullet = bulletIterator.next();
             // 移除失效或越界bullet
-            boolean shouldBeRemoved = !bullet.isAlive() || !TankUtils.willBeInsideBounds(this, bullet, bullet.getDirection());
+            boolean shouldBeRemoved = !bullet.isAlive() || TankUtils.willBeOutOfBounds(this, bullet, bullet.getDirection());
             if (shouldBeRemoved) {
                 // 让子弹线程停止while循环
                 bullet.setAlive(false);

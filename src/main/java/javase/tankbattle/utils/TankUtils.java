@@ -13,9 +13,15 @@ public class TankUtils {
     }
 
     /**
+     * 下次移动是否越界
+     */
+    public static boolean willBeOutOfBounds(JPanel panel, Movable movable, DirectionEnum nextDirection) {
+        return !willBeInsideBounds(panel, movable, nextDirection);
+    }
+    /**
      * 下次移动是否在panel内
      */
-    public static boolean willBeInsideBounds(JPanel panel, Movable movable, DirectionEnum nextDirection) {
+    private static boolean willBeInsideBounds(JPanel panel, Movable movable, DirectionEnum nextDirection) {
         Point nextPoint = movable.getNextPoint(nextDirection);
         // 根据方向获取长宽
         int width = (int) realWidth(movable.getWidth(), movable.getHeight(), nextDirection);
@@ -27,7 +33,7 @@ public class TankUtils {
 
 
     /**
-     * 子弹是否击中坦克
+     * 子弹是否已经击中坦克
      */
     public static boolean doBulletIntersectTank(Bullet bullet, AbstractTank tank) {
         double leftA = bullet.getX();
@@ -38,6 +44,25 @@ public class TankUtils {
         double rightB = tank.getX() + realWidth(tank.getWidth(), tank.getHeight(), tank.getDirection());
         double topB = tank.getY();
         double bottomB = tank.getY() + realHeight(tank.getWidth(), tank.getHeight(), tank.getDirection());
+        return doRectanglesIntersect(leftA, rightA, topA, bottomA, leftB, rightB, topB, bottomB);
+    }
+
+    /**
+     * 坦克A下次移动是否会撞到tankB
+     */
+    public static boolean willTanksIntersect(AbstractTank tankA, DirectionEnum nextDirection, AbstractTank tankB) {
+        if (tankA == tankB) {
+            return false;
+        }
+        Point nextPoint = tankA.getNextPoint(nextDirection);
+        double leftA = nextPoint.getX();
+        double rightA = nextPoint.getX() + realWidth(tankA.getWidth(), tankA.getHeight(), nextDirection);
+        double topA = nextPoint.getY();
+        double bottomA = nextPoint.getY() + realHeight(tankA.getWidth(), tankA.getHeight(), nextDirection);
+        double leftB = tankB.getX();
+        double rightB = tankB.getX() + realWidth(tankB.getWidth(), tankB.getHeight(), tankB.getDirection());
+        double topB = tankB.getY();
+        double bottomB = tankB.getY() + realHeight(tankB.getWidth(), tankB.getHeight(),  tankB.getDirection());
         return doRectanglesIntersect(leftA, rightA, topA, bottomA, leftB, rightB, topB, bottomB);
     }
 

@@ -22,4 +22,5 @@ public class MoveCommand implements Command {
         movable.move(nextDirection);
         return true;
     }
+
 }

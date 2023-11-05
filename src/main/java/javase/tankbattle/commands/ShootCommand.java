@@ -3,12 +3,12 @@ package javase.tankbattle.commands;
 import javase.tankbattle.entities.AbstractTank;
 import javase.tankbattle.entities.Bullet;
 import lombok.Getter;
-import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.Optional;
 import java.util.concurrent.BlockingQueue;
 
 @Getter
+@Slf4j
 public class ShootCommand implements Command {
     private final AbstractTank tank;
     private final BlockingQueue<Bullet> bulletQueue;
@@ -20,14 +20,19 @@ public class ShootCommand implements Command {
 
     @Override
     public boolean execute() {
-        Bullet bullet = tank.shoot();
-        if (bullet != null){
-            System.out.println(bullet);
-            bulletQueue.offer(bullet);
-            System.out.println(bullet);
-            return true;
-        } else {
+        if (!tank.isAlive()) {
             return false;
         }
+        Bullet bullet = tank.shoot();
+        if (bullet == null) {
+            return false;
+        }
+
+        boolean shootSuccessfully = bulletQueue.offer(bullet);
+        if (!shootSuccessfully) {
+            log.warn(tank + "发射失败 [线程饥饿]");
+        }
+        return shootSuccessfully;
     }
+
 }

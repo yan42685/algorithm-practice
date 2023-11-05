@@ -2,18 +2,15 @@ package javase.tankbattle.commands;
 
 import javase.tankbattle.constants.DirectionEnum;
 import javase.tankbattle.entities.AbstractTank;
-import javase.tankbattle.entities.Bullet;
 import javase.tankbattle.entities.Movable;
 import javase.tankbattle.ui.MainPanel;
 import javase.tankbattle.utils.TankUtils;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.BlockingQueue;
 
 /**
  * 命令模式 + 策略模式
@@ -46,16 +43,24 @@ public class TankCommandListener extends KeyAdapter {
         }
 
         if (command instanceof MoveCommand) {
-            // TODO: 检测与其他坦克碰撞
+            // 越界检测
             Movable movable = ((MoveCommand) command).getMovable();
             DirectionEnum nextDirection = ((MoveCommand) command).getNextDirection();
-
-            log.info(movable.toString());
-            log.info(nextDirection.toString());
-            return TankUtils.willBeInsideBounds(panel, movable, nextDirection);
-        } else {
-            return true;
+            if (TankUtils.willBeOutOfBounds(panel, movable, nextDirection)) {
+                return false;
+            }
+            if (movable instanceof AbstractTank) {
+                // 坦克碰撞检测
+                AbstractTank tank = (AbstractTank) movable;
+                boolean willIntersect = panel.getTanks().stream()
+                        .filter(AbstractTank::isAlive)
+                        .anyMatch(t -> TankUtils.willTanksIntersect(tank, nextDirection, t));
+                if (willIntersect) {
+                    return false;
+                }
+            }
         }
+        return true;
     }
 
     private void registerCommands(AbstractTank tank) {

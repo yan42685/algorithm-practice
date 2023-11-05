@@ -4,6 +4,7 @@ import javase.tankbattle.constants.DirectionEnum;
 import javase.tankbattle.constants.FactionEnum;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.ToString;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedList;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Getter
+@ToString
 public abstract class AbstractTank extends Movable {
     // 重新声明一个于父类同名的属性 可能出现静态绑定问题
     protected double step = 5.0;
@@ -38,7 +40,7 @@ public abstract class AbstractTank extends Movable {
         long currentTime = System.currentTimeMillis();
         // 限制射击频率
         if (currentTime - lastShootTime < minShootInterval) {
-//            return null;
+            return null;
         }
 
         lastShootTime = currentTime;
