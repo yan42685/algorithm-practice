@@ -4,6 +4,7 @@ import javase.tankbattle.constants.Constants;
 import javase.tankbattle.constants.DirectionEnum;
 import javase.tankbattle.constants.FactionEnum;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 public class Bullet extends Movable implements Runnable {
     // 射程
     private static final double RANGE = 280.0;
+    @Setter
+    private int damage = 1;
     // 剩余可飞行路程
     private double remainingDistance = RANGE;
     // 由哪种类型的坦克发射

@@ -8,6 +8,7 @@ import lombok.ToString;
 public class HeroTank extends AbstractTank {
     public HeroTank(double x, double y, DirectionEnum direction) {
         super(x, y, direction);
+        health.set(2);
     }
 
     @Override

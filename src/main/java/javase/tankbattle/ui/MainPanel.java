@@ -10,6 +10,7 @@ import javase.tankbattle.entities.HeroTank;
 import javase.tankbattle.utils.CommandManager;
 import javase.tankbattle.utils.TankUtils;
 import lombok.Getter;
+import utils.AtomicUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -101,14 +102,14 @@ public class MainPanel extends JPanel implements Runnable {
                 continue;
             }
 
-            // 不移除坦克而仅仅标记 isAlive = false 是为了后续可能支持复活等操作
+            // 不移除坦克而仅仅减少生命 是为了后续可能支持复活等操作
             tanks.stream()
                     .filter(AbstractTank::isAlive)
                     // 不会击毁同阵营坦克
                     .filter(tank -> !bullet.getFaction().equals(tank.getFaction()))
                     .filter(tank -> TankUtils.doBulletIntersectTank(bullet, tank))
                     .forEach(tank -> {
-                        tank.setAlive(false);
+                        tank.decreaseHealth(bullet.getDamage());
                         bullet.setAlive(false);
                         bulletIterator.remove();
                     });
