@@ -5,18 +5,19 @@ import javase.tankbattle.constants.Constants;
 import javase.tankbattle.constants.DirectionEnum;
 import javase.tankbattle.constants.FactionEnum;
 import javase.tankbattle.utils.CommandManager;
+import javase.tankbattle.utils.TankUtils;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @ToString(callSuper = true)
 public class EnemyTank extends AbstractTank implements Runnable {
-    // 上次移动的方向
-    private DirectionEnum previousDirection;
+    private static final int MIN_MOVE_DURATION = 1200;
+    private static final int MAX_MOVE_DURATION = 3500;
 
     public EnemyTank(double x, double y, DirectionEnum direction) {
         super(x, y, direction);
-        previousDirection = direction;
+        step = 2.2;
     }
 
     @Override
@@ -28,22 +29,35 @@ public class EnemyTank extends AbstractTank implements Runnable {
     public void run() {
         int interval = Constants.REPAINT_INTERVAL;
         while (isAlive) {
-            // 随机移动1~3.5秒后转向另一方向
-            long moveDuration = 1000 + Constants.RANDOM.nextInt(2500);
+            // 随机移动一段时间后转向另一方向
+            int moveDuration = TankUtils.randomInt(MIN_MOVE_DURATION, MAX_MOVE_DURATION);
             while (moveDuration > interval) {
-                CommandManager.INSTANCE.checkAndExecute(new MoveCommand(this, direction));
-                moveDuration -= interval;
-                try {
-                    Thread.sleep(interval);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                boolean moveSuccessfully = CommandManager.INSTANCE.checkAndExecute(new MoveCommand(this, direction));
+                if (moveSuccessfully) {
+                    moveDuration -= interval;
+                    try {
+                        Thread.sleep(interval);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {
+                    // 移动失败则改变方向并重置移动时间
+                    changeDirection();
+                    moveDuration = TankUtils.randomInt(MIN_MOVE_DURATION, MAX_MOVE_DURATION);
                 }
             }
+            // 移动超过一定时间改变方向
+            changeDirection();
 
-            do {
-                direction = DirectionEnum.random();
-            } while (direction.equals(previousDirection));
-            previousDirection = direction;
         }
     }
+
+    private void changeDirection() {
+        DirectionEnum previousDirection = direction;
+        do {
+            direction = DirectionEnum.random();
+        } while (direction.equals(previousDirection));
+    }
+
+
 }

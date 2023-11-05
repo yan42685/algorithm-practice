@@ -27,29 +27,17 @@ public class MainPanel extends JPanel implements Runnable {
     // 同步队列, 接收多个坦克线程发射的子弹，并在渲染前drainTo(bulletList)
     // 如果不用同步队列、只用Vector<bullet>可能出现遍历时添加子弹抛出ConcurrentModificationException
     private final BlockingQueue<Bullet> bulletQueue;
-    // 这个容器的内容会被多个线程修改
-    private final Vector<AbstractTank> tanks;
+    private final List<AbstractTank> tanks;
 
 
     public MainPanel() {
+        // 设置checker的上下文, 这行代码要放在CommandManager.INSTANCE.checkAndExecute之前
+        CommandManager.INSTANCE.setPanel(this);
         bullets = new LinkedList<>();
         bulletQueue = new LinkedBlockingQueue<>();
+        tanks = new LinkedList<>();
 
-        // 设置checker的上下文
-        CommandManager.INSTANCE.setPanel(this);
-
-        tanks = new Vector<>();
-        // 添加敌人坦克
-        for (int i = 1; i <= ENEMY_COUNT; i++) {
-            EnemyTank enemyTank = new EnemyTank(200 * i, 50, DirectionEnum.random());
-            new Thread(enemyTank).start();
-            tanks.add(enemyTank);
-        }
-        // 添加主角坦克并监听键盘操作
-        HeroTank heroTank = new HeroTank(200, 200, DirectionEnum.UP);
-        addKeyListener(new TankCommandListener(this, heroTank));
-        tanks.add(heroTank);
-
+        initTanks();
         // 可聚焦, 聚焦这个panel之后才能监听键盘输入
         setFocusable(true);
     }
@@ -78,6 +66,18 @@ public class MainPanel extends JPanel implements Runnable {
                 e.printStackTrace();
             }
         }
+    }
+    private void initTanks() {
+        // 添加敌人坦克
+        for (int i = 1; i <= ENEMY_COUNT; i++) {
+            EnemyTank enemyTank = new EnemyTank(200 * i, 50, DirectionEnum.random());
+            new Thread(enemyTank).start();
+            tanks.add(enemyTank);
+        }
+        // 添加主角坦克并监听键盘操作
+        HeroTank heroTank = new HeroTank(200, 200, DirectionEnum.UP);
+        addKeyListener(new TankCommandListener(this, heroTank));
+        tanks.add(heroTank);
     }
 
     /**

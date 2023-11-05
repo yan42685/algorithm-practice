@@ -1,5 +1,6 @@
 package javase.tankbattle.utils;
 
+import javase.tankbattle.constants.Constants;
 import javase.tankbattle.constants.DirectionEnum;
 import javase.tankbattle.entities.AbstractTank;
 import javase.tankbattle.entities.Bullet;
@@ -10,6 +11,13 @@ import javax.swing.*;
 
 public class TankUtils {
     private TankUtils() {
+    }
+
+    /**
+     * @return [min, max] 之间的随机int数
+     */
+    public static int randomInt(int min, int max) {
+        return min + Constants.RANDOM.nextInt(max - min + 1);
     }
 
     /**
@@ -55,7 +63,7 @@ public class TankUtils {
         double leftB = tankB.getX();
         double rightB = tankB.getX() + realWidth(tankB.getWidth(), tankB.getHeight(), tankB.getDirection());
         double topB = tankB.getY();
-        double bottomB = tankB.getY() + realHeight(tankB.getWidth(), tankB.getHeight(),  tankB.getDirection());
+        double bottomB = tankB.getY() + realHeight(tankB.getWidth(), tankB.getHeight(), tankB.getDirection());
         return doRectanglesIntersect(leftA, rightA, topA, bottomA, leftB, rightB, topB, bottomB);
     }
 

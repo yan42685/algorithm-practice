@@ -22,7 +22,7 @@ public class Bullet extends Movable implements Runnable {
 
     public Bullet(double x, double y, DirectionEnum direction, FactionEnum faction) {
         super(x, y, direction);
-        step = 3.0;
+        step = 4.5;
         width = 7;
         height = 7;
         this.faction = faction;
