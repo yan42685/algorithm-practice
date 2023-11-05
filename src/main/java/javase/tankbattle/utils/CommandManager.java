@@ -3,6 +3,7 @@ package javase.tankbattle.utils;
 import cn.hutool.core.lang.Assert;
 import javase.tankbattle.commands.Command;
 import javase.tankbattle.commands.MoveCommand;
+import javase.tankbattle.commands.ShootCommand;
 import javase.tankbattle.constants.DirectionEnum;
 import javase.tankbattle.entities.AbstractTank;
 import javase.tankbattle.entities.Movable;
@@ -28,6 +29,10 @@ public enum CommandManager {
         } else {
             return command.execute();
         }
+    }
+
+    public boolean checkAndExecuteShoot(AbstractTank tank) {
+        return checkAndExecute(new ShootCommand(tank, panel.getBulletQueue()));
     }
 
     // 检查是否满足执行命令的条件

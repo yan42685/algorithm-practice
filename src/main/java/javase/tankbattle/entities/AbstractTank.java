@@ -54,7 +54,7 @@ public abstract class AbstractTank extends Movable {
     }
 
     /**
-     * 减少生命，线程安全
+     * 减少生命，线程安全, 实际上只在主线程MainPanel中减少生命，不会被多个线程修改，这里用作学习更新原子数值
      */
     public void decreaseHealth(int damage) {
         AtomicUtils.reduceInt(health, damage);
