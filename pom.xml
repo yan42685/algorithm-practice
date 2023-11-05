@@ -12,6 +12,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <compiler.version>1.8</compiler.version>
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
+
+        <org.jetbrains.annotaion.version>24.0.1</org.jetbrains.annotaion.version>
         <junit-jupiter-engine.version>5.7.0</junit-jupiter-engine.version>
         <reflections.version>0.9.12</reflections.version>
         <lombok.version>1.18.10</lombok.version>
@@ -24,6 +26,12 @@
     </properties>
 
     <dependencies>
+        <!-- 主要用于 @NotNull和@Nullable注解 尽量在编译期排除NPE问题  -->
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${org.jetbrains.annotaion.version}</version>
+        </dependency>
         <!-- 为测试类提供各种注解 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
