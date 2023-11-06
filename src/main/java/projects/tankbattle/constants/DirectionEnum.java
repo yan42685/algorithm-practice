@@ -1,4 +1,4 @@
-package javase.tankbattle.constants;
+package projects.tankbattle.constants;
 
 public enum DirectionEnum {
     UP, DOWN, LEFT, RIGHT;

@@ -1,7 +1,7 @@
-package javase.tankbattle.commands;
+package projects.tankbattle.commands;
 
-import javase.tankbattle.entities.AbstractTank;
-import javase.tankbattle.entities.Bullet;
+import projects.tankbattle.entities.AbstractTank;
+import projects.tankbattle.entities.Bullet;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 

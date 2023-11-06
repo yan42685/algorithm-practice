@@ -1,12 +1,11 @@
-package javase.tankbattle.entities;
+package projects.tankbattle.entities;
 
-import javase.tankbattle.commands.MoveCommand;
-import javase.tankbattle.commands.ShootCommand;
-import javase.tankbattle.constants.Constants;
-import javase.tankbattle.constants.DirectionEnum;
-import javase.tankbattle.constants.FactionEnum;
-import javase.tankbattle.utils.CommandManager;
-import javase.tankbattle.utils.TankUtils;
+import projects.tankbattle.commands.MoveCommand;
+import projects.tankbattle.constants.Constants;
+import projects.tankbattle.constants.DirectionEnum;
+import projects.tankbattle.constants.FactionEnum;
+import projects.tankbattle.utils.CommandManager;
+import projects.tankbattle.utils.TankUtils;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,23 +1,21 @@
-package javase.tankbattle.ui;
+package projects.tankbattle.ui;
 
-import javase.tankbattle.commands.TankCommandListener;
-import javase.tankbattle.constants.Constants;
-import javase.tankbattle.constants.DirectionEnum;
-import javase.tankbattle.entities.AbstractTank;
-import javase.tankbattle.entities.Bullet;
-import javase.tankbattle.entities.EnemyTank;
-import javase.tankbattle.entities.HeroTank;
-import javase.tankbattle.utils.CommandManager;
-import javase.tankbattle.utils.TankUtils;
+import projects.tankbattle.commands.TankCommandListener;
+import projects.tankbattle.constants.Constants;
+import projects.tankbattle.constants.DirectionEnum;
+import projects.tankbattle.entities.AbstractTank;
+import projects.tankbattle.entities.Bullet;
+import projects.tankbattle.entities.EnemyTank;
+import projects.tankbattle.entities.HeroTank;
+import projects.tankbattle.utils.CommandManager;
+import projects.tankbattle.utils.TankUtils;
 import lombok.Getter;
-import utils.AtomicUtils;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Vector;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 

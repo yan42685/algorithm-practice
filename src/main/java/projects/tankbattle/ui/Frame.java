@@ -1,6 +1,4 @@
-package javase.tankbattle.ui;
-
-import javase.tankbattle.commands.TankCommandListener;
+package projects.tankbattle.ui;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,8 +1,8 @@
-package javase.tankbattle.entities;
+package projects.tankbattle.entities;
 
-import javase.tankbattle.constants.Constants;
-import javase.tankbattle.constants.DirectionEnum;
-import javase.tankbattle.constants.FactionEnum;
+import projects.tankbattle.constants.Constants;
+import projects.tankbattle.constants.DirectionEnum;
+import projects.tankbattle.constants.FactionEnum;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

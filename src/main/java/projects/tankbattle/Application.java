@@ -1,6 +1,6 @@
-package javase.tankbattle;
+package projects.tankbattle;
 
-import javase.tankbattle.ui.Frame;
+import projects.tankbattle.ui.Frame;
 
 public class Application {
     public static void main(String[] args) {

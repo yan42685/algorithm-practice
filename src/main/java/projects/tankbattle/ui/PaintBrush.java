@@ -1,8 +1,8 @@
-package javase.tankbattle.ui;
+package projects.tankbattle.ui;
 
-import javase.tankbattle.constants.FactionEnum;
-import javase.tankbattle.entities.AbstractTank;
-import javase.tankbattle.entities.Bullet;
+import projects.tankbattle.constants.FactionEnum;
+import projects.tankbattle.entities.AbstractTank;
+import projects.tankbattle.entities.Bullet;
 
 import java.awt.*;
 import java.util.Collection;

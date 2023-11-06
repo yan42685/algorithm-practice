@@ -1,16 +1,12 @@
-package javase.tankbattle.entities;
+package projects.tankbattle.entities;
 
-import javase.tankbattle.constants.DirectionEnum;
-import javase.tankbattle.constants.FactionEnum;
+import projects.tankbattle.constants.DirectionEnum;
+import projects.tankbattle.constants.FactionEnum;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 import org.jetbrains.annotations.Nullable;
 import utils.AtomicUtils;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter

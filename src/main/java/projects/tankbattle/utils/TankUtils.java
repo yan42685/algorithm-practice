@@ -1,11 +1,11 @@
-package javase.tankbattle.utils;
+package projects.tankbattle.utils;
 
-import javase.tankbattle.constants.Constants;
-import javase.tankbattle.constants.DirectionEnum;
-import javase.tankbattle.entities.AbstractTank;
-import javase.tankbattle.entities.Bullet;
-import javase.tankbattle.entities.Movable;
-import javase.tankbattle.entities.Point;
+import projects.tankbattle.constants.Constants;
+import projects.tankbattle.constants.DirectionEnum;
+import projects.tankbattle.entities.AbstractTank;
+import projects.tankbattle.entities.Bullet;
+import projects.tankbattle.entities.Movable;
+import projects.tankbattle.entities.Point;
 
 import javax.swing.*;
 

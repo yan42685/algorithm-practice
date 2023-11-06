@@ -1,7 +1,7 @@
-package javase.tankbattle.entities;
+package projects.tankbattle.entities;
 
-import javase.tankbattle.constants.DirectionEnum;
-import javase.tankbattle.constants.FactionEnum;
+import projects.tankbattle.constants.DirectionEnum;
+import projects.tankbattle.constants.FactionEnum;
 import lombok.ToString;
 
 @ToString

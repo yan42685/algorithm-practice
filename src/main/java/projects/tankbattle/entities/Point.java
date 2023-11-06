@@ -1,4 +1,4 @@
-package javase.tankbattle.entities;
+package projects.tankbattle.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

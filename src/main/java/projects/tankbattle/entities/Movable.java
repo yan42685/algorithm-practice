@@ -1,6 +1,6 @@
-package javase.tankbattle.entities;
+package projects.tankbattle.entities;
 
-import javase.tankbattle.constants.DirectionEnum;
+import projects.tankbattle.constants.DirectionEnum;
 import lombok.Getter;
 import lombok.Setter;
 

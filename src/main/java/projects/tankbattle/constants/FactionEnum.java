@@ -1,4 +1,4 @@
-package javase.tankbattle.constants;
+package projects.tankbattle.constants;
 
 /**
  * 阵营枚举

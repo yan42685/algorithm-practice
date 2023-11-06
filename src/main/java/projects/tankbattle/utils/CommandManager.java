@@ -1,13 +1,13 @@
-package javase.tankbattle.utils;
+package projects.tankbattle.utils;
 
 import cn.hutool.core.lang.Assert;
-import javase.tankbattle.commands.Command;
-import javase.tankbattle.commands.MoveCommand;
-import javase.tankbattle.commands.ShootCommand;
-import javase.tankbattle.constants.DirectionEnum;
-import javase.tankbattle.entities.AbstractTank;
-import javase.tankbattle.entities.Movable;
-import javase.tankbattle.ui.MainPanel;
+import projects.tankbattle.commands.Command;
+import projects.tankbattle.commands.MoveCommand;
+import projects.tankbattle.commands.ShootCommand;
+import projects.tankbattle.constants.DirectionEnum;
+import projects.tankbattle.entities.AbstractTank;
+import projects.tankbattle.entities.Movable;
+import projects.tankbattle.ui.MainPanel;
 
 /**
  * 有状态的公用方法 -> 单例模式

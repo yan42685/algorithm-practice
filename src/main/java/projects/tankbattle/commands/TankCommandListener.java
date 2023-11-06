@@ -1,9 +1,9 @@
-package javase.tankbattle.commands;
+package projects.tankbattle.commands;
 
-import javase.tankbattle.constants.DirectionEnum;
-import javase.tankbattle.entities.AbstractTank;
-import javase.tankbattle.ui.MainPanel;
-import javase.tankbattle.utils.CommandManager;
+import projects.tankbattle.constants.DirectionEnum;
+import projects.tankbattle.entities.AbstractTank;
+import projects.tankbattle.ui.MainPanel;
+import projects.tankbattle.utils.CommandManager;
 import lombok.extern.slf4j.Slf4j;
 
 import java.awt.event.KeyAdapter;
