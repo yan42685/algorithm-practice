@@ -7,12 +7,12 @@ package design_pattern.creational.singleton;
  * 缺点：不是反射安全和序列化安全的
  */
 public class HungrySingleton1 {
-    private static Resource instance = new Resource();
+    private static HungrySingleton1 instance = new HungrySingleton1();
 
     private HungrySingleton1() {
     }
 
-    public static Resource getInstance() {
+    public static HungrySingleton1 getInstance() {
         return instance;
     }
 }

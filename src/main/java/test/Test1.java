@@ -1,6 +1,8 @@
 package test;
 
 
+import design_pattern.creational.singleton.LazySingleton1;
+import design_pattern.creational.singleton.LazySingleton2;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -13,7 +15,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class Test1 {
 
     public static void main(String[] args) {
-        new LinkedBlockingQueue<>();
+        PriorityQueue<Movable> pq = new PriorityQueue<>((a,b) -> Double.compare(a.getX(), b.getX()));
+//        LazySingleton2 instance = LazySingleton2.getInstance();
     }
 
 }

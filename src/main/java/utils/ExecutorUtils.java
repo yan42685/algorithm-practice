@@ -1,29 +1,28 @@
 package utils;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
+/**
+ * 参考线程池最佳实践：https://github.com/langyastudio/langya-doc/blob/master/docs/java/concurrent/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.md
+ */
 public class ExecutorUtils {
-    private static final int CORE_POOL_SIZE = 5;
-    private static final int MAX_POOL_SIZE = 10;
-    private static final Long KEEP_ALIVE_TIME = 60L;
-    private static final int QUEUE_CAPACITY = 100;
+
+    private ExecutorUtils() {
+    }
+
     /**
      * 需要自定义参数是因为JDK的默认实现有各种缺点
      * FixedThreadPool 和 SingleThreadExecutor ：允许请求的队列长度为 Integer.MAX_VALUE,可能堆积大量的请求，从而导致 OOM。
      * CachedThreadPool 和 ScheduledThreadPool ：允许创建的线程数量为 Integer.MAX_VALUE ，可能会创建大量线程，从而导致 OOM。
      */
-    private static final ExecutorService EXECUTOR_SERVICE = new ThreadPoolExecutor(
-            CORE_POOL_SIZE,
-            MAX_POOL_SIZE,
-            KEEP_ALIVE_TIME,
-            TimeUnit.SECONDS,
-            new ArrayBlockingQueue<>(QUEUE_CAPACITY),
-            new ThreadPoolExecutor.CallerRunsPolicy());
 
-    public static ExecutorService getService() {
-        return EXECUTOR_SERVICE;
+    public static ThreadPoolExecutor createDefaultPool() {
+        return new ThreadPoolExecutor(
+                10,
+                30,
+                60,
+                TimeUnit.SECONDS,
+                new LinkedBlockingQueue<>(1000),
+                new ThreadPoolExecutor.CallerRunsPolicy());
     }
 }
