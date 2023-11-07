@@ -43,17 +43,22 @@ public abstract class AbstractTank extends Movable {
 
         lastShootTime = currentTime;
         Point shootPoint = getShootPoint();
-        Bullet bullet = new Bullet(shootPoint.getX(), shootPoint.getY(), direction, faction);
-        new Thread(bullet).start();
 
-        return bullet;
+        return new Bullet(shootPoint.getX(), shootPoint.getY(), direction, faction);
     }
 
     /**
      * 减少生命，线程安全, 实际上只在主线程MainPanel中减少生命，不会被多个线程修改，这里用作学习更新原子数值
      */
     public void decreaseHealth(int damage) {
-        AtomicUtils.reduceInt(health, damage);
+        int preValue;
+        int newValue;
+        do {
+            preValue = health.get();
+            newValue = preValue - damage;
+            // 如果health.get() != preValue，则取消set操作并返回false，说明数据被其他线程修改了
+        } while (!health.compareAndSet(preValue, newValue));
+
         if (health.get() <= 0) {
             setAlive(false);
         }
