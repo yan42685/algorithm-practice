@@ -1,7 +1,7 @@
 package projects.tankbattle.commands;
 
 import projects.tankbattle.constants.Constants;
-import projects.tankbattle.utils.ThreadManager;
+import projects.tankbattle.utils.ThreadExecutor;
 import projects.tankbattle.entities.AbstractTank;
 import projects.tankbattle.entities.Bullet;
 import lombok.Getter;
@@ -49,7 +49,7 @@ public class ShootCommand implements Command {
             }
         };
         // 提交给线程池执行
-        ThreadManager.submit(task);
+        ThreadExecutor.submit(task);
 
         boolean shootSuccessfully = bulletQueue.offer(bullet);
         if (!shootSuccessfully) {

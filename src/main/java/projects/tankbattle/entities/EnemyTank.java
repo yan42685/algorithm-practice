@@ -4,7 +4,7 @@ import projects.tankbattle.commands.MoveCommand;
 import projects.tankbattle.constants.Constants;
 import projects.tankbattle.constants.DirectionEnum;
 import projects.tankbattle.constants.FactionEnum;
-import projects.tankbattle.utils.CommandManager;
+import projects.tankbattle.utils.CommandExecutor;
 import projects.tankbattle.utils.TankUtils;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -28,13 +28,13 @@ public class EnemyTank extends AbstractTank implements Runnable {
             // 随机移动一段时间后转向另一方向
             int moveDuration = TankUtils.randomInt(MIN_MOVE_DURATION, MAX_MOVE_DURATION);
             while (moveDuration > interval) {
-                boolean moveSuccessfully = CommandManager.INSTANCE.checkAndExecute(new MoveCommand(this, direction));
+                boolean moveSuccessfully = CommandExecutor.INSTANCE.checkAndExecute(new MoveCommand(this, direction));
                 if (moveSuccessfully) {
                     moveDuration -= interval;
                     // 随机发射间隔，但有一个最小值
                     minShootInterval = TankUtils.randomInt(originalMinShootInterval, 2 * originalMinShootInterval);
                     // 射击
-                    CommandManager.INSTANCE.checkAndExecuteShoot(this);
+                    CommandExecutor.INSTANCE.checkAndExecuteShoot(this);
                     try {
                         Thread.sleep(interval);
                     } catch (InterruptedException e) {

@@ -4,8 +4,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class ThreadManager {
-    private ThreadManager() {}
+public class ThreadExecutor {
+    private ThreadExecutor() {}
     private static class Holder {
         private static ThreadPoolExecutor pool = new ThreadPoolExecutor(
                 10, 50, 60,

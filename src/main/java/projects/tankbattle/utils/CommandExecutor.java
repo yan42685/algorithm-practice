@@ -8,12 +8,13 @@ import projects.tankbattle.constants.DirectionEnum;
 import projects.tankbattle.entities.AbstractTank;
 import projects.tankbattle.entities.Movable;
 import projects.tankbattle.ui.MainPanel;
+import projects.tankbattle.utils.TankUtils;
 
 /**
  * 有状态的公用方法 -> 单例模式
  * 无状态的公用方法 -> 静态方法组成的工具类
  */
-public enum CommandManager {
+public enum CommandExecutor {
     // 单例对象
     INSTANCE;
 

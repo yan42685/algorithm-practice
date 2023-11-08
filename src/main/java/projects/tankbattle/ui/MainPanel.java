@@ -7,9 +7,10 @@ import projects.tankbattle.entities.AbstractTank;
 import projects.tankbattle.entities.Bullet;
 import projects.tankbattle.entities.EnemyTank;
 import projects.tankbattle.entities.HeroTank;
-import projects.tankbattle.utils.CommandManager;
+import projects.tankbattle.utils.CommandExecutor;
 import projects.tankbattle.utils.TankUtils;
 import lombok.Getter;
+import projects.tankbattle.utils.ThreadExecutor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,7 +32,7 @@ public class MainPanel extends JPanel implements Runnable {
 
     public MainPanel() {
         // 设置checker的上下文, 这行代码要放在CommandManager.INSTANCE.checkAndExecute之前
-        CommandManager.INSTANCE.setPanel(this);
+        CommandExecutor.INSTANCE.setPanel(this);
         bullets = new LinkedList<>();
         bulletQueue = new LinkedBlockingQueue<>();
         tanks = new LinkedList<>();
@@ -70,7 +71,7 @@ public class MainPanel extends JPanel implements Runnable {
         // 添加敌人坦克
         for (int i = 1; i <= ENEMY_COUNT; i++) {
             EnemyTank enemyTank = new EnemyTank(200 * i, 50, DirectionEnum.random());
-            new Thread(enemyTank).start();
+            ThreadExecutor.submit(enemyTank);
             tanks.add(enemyTank);
         }
         // 添加主角坦克并监听键盘操作

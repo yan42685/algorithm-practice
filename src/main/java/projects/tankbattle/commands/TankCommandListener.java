@@ -3,8 +3,8 @@ package projects.tankbattle.commands;
 import projects.tankbattle.constants.DirectionEnum;
 import projects.tankbattle.entities.AbstractTank;
 import projects.tankbattle.ui.MainPanel;
-import projects.tankbattle.utils.CommandManager;
 import lombok.extern.slf4j.Slf4j;
+import projects.tankbattle.utils.CommandExecutor;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -29,7 +29,7 @@ public class TankCommandListener extends KeyAdapter {
     @Override
     public void keyPressed(KeyEvent e) {
         Command command = map.get(e.getKeyCode());
-        CommandManager.INSTANCE.checkAndExecute(command);
+        CommandExecutor.INSTANCE.checkAndExecute(command);
     }
 
 
