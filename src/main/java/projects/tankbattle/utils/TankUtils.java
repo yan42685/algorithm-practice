@@ -5,16 +5,18 @@ import projects.tankbattle.constants.DirectionEnum;
 import projects.tankbattle.entities.*;
 
 import javax.swing.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class TankUtils {
     private TankUtils() {
     }
 
     /**
-     * @return [min, max] 之间的随机int数
+     * 为每个线程创建不同的随机数生成器
+     * @return [min, max) 之间的随机int数
      */
     public static int randomInt(int min, int max) {
-        return min + Constants.RANDOM.nextInt(max - min + 1);
+        return ThreadLocalRandom.current().nextInt(min, max);
     }
 
     /**

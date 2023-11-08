@@ -7,5 +7,4 @@ public class Constants {
     public static final double EPSILON = 1e-8;
     // 重绘间隔
     public static final int REPAINT_INTERVAL = 20;
-    public static final Random RANDOM = new Random();
 }
