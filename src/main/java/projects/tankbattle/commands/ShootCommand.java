@@ -30,6 +30,7 @@ public class ShootCommand implements Command {
             return false;
         }
 
+        // 沿着原来的方向移动直到remainingDistance < step，然后设置为死亡状态
         Runnable task = () -> {
             while (bullet.isAlive()) {
                 double remainingDistance = bullet.getRemainingDistance();
@@ -51,11 +52,7 @@ public class ShootCommand implements Command {
         // 提交给线程池执行
         ThreadExecutor.submit(task);
 
-        boolean shootSuccessfully = bulletQueue.offer(bullet);
-        if (!shootSuccessfully) {
-            log.warn(tank + "发射失败 [线程饥饿]");
-        }
-        return shootSuccessfully;
+        return bulletQueue.offer(bullet);
     }
 
 }

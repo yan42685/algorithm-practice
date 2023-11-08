@@ -53,10 +53,11 @@ public class EnemyTank extends AbstractTank implements Runnable {
     }
 
     private void changeDirection() {
-        DirectionEnum previousDirection = direction;
+        DirectionEnum nextDirection;
         do {
-            direction = DirectionEnum.random();
-        } while (direction.equals(previousDirection));
+            nextDirection = DirectionEnum.random();
+        } while (nextDirection.equals(direction));
+        direction = nextDirection;
     }
 
 

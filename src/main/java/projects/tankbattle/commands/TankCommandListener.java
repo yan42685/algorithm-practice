@@ -2,9 +2,9 @@ package projects.tankbattle.commands;
 
 import projects.tankbattle.constants.DirectionEnum;
 import projects.tankbattle.entities.AbstractTank;
-import projects.tankbattle.ui.MainPanel;
 import lombok.extern.slf4j.Slf4j;
 import projects.tankbattle.utils.CommandExecutor;
+import projects.tankbattle.ui.GameManager;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -18,11 +18,11 @@ import java.util.Map;
 @Slf4j
 public class TankCommandListener extends KeyAdapter {
     private final Map<Integer, Command> map;
-    private final MainPanel panel;
+    private final GameManager context;
 
-    public TankCommandListener(MainPanel panel, AbstractTank tank) {
+    public TankCommandListener(GameManager context, AbstractTank tank) {
         map = new HashMap<>();
-        this.panel = panel;
+        this.context = context;
         registerCommands(tank);
     }
 
@@ -43,8 +43,8 @@ public class TankCommandListener extends KeyAdapter {
         map.put(KeyEvent.VK_LEFT, new MoveCommand(tank, DirectionEnum.LEFT));
         map.put(KeyEvent.VK_RIGHT, new MoveCommand(tank, DirectionEnum.RIGHT));
 
-        map.put(KeyEvent.VK_J, new ShootCommand(tank, panel.getBulletQueue()));
-        map.put(KeyEvent.VK_SPACE, new ShootCommand(tank, panel.getBulletQueue()));
+        map.put(KeyEvent.VK_J, new ShootCommand(tank, context.getBulletQueue()));
+        map.put(KeyEvent.VK_SPACE, new ShootCommand(tank, context.getBulletQueue()));
     }
 
 }

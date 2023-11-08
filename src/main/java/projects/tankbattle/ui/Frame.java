@@ -20,7 +20,6 @@ public class Frame extends JFrame {
 
         MainPanel mainPanel = new MainPanel();
         this.add(mainPanel);
-        new Thread(mainPanel).start();
 
         // setVisible(true) 要放在最后一行, 不然可能无法渲染出panel
         this.setVisible(true);
