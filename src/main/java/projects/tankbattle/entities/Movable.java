@@ -10,8 +10,6 @@ import projects.tankbattle.constants.FactionEnum;
  */
 @Getter
 public abstract class Movable extends Rectangle {
-    @Setter
-    protected boolean isAlive = true;
     protected DirectionEnum direction;
     // 步长
     protected double step;
@@ -30,24 +28,18 @@ public abstract class Movable extends Rectangle {
      * 指定方向移动
      */
     public void move(DirectionEnum nextDirection) {
-        Point nextPoint = getNextPoint(nextDirection);
+        Point nextPoint = nextPosition(nextDirection);
         x = nextPoint.getX();
         y = nextPoint.getY();
         direction = nextDirection;
     }
 
     /**
-     * 下一次移动的目的坐标, 用于在移动前检测是否可移动
+     * 下一次移动的目的坐标
      */
-    public Point getNextPoint(DirectionEnum nextDirection) {
-        // 静态绑定：只要子类对象的编译类型是Movable，就会输出0.0
-        // System.out.println("step: " + step);
-        // 动态绑定, 输出值取决于动态类型
-        // System.out.println("step " + getStep());
+    private Point nextPosition(DirectionEnum nextDirection) {
         switch (nextDirection) {
             case UP:
-                // 不使用this.step是因为父类Movable和子类AbstractTank都声明了step属性，为了避免静态绑定而使用getStep()
-                // 更好的做法子类不要声明 父类同名属性, 而是在构造函数里修改step的值; 此处不这么做是为了学习静态绑定现象
                 return new Point(x, y - getStep());
             case DOWN:
                 return new Point(x, y + getStep());
@@ -60,12 +52,38 @@ public abstract class Movable extends Rectangle {
         }
     }
 
-    // TODO: 实现
+    /**
+     * 当前占用的矩形空间
+     */
     public Rectangle currentRectangle() {
-        return null;
+        return getRectByPositionAndDirection(new Point(x, y), direction);
     }
 
-    public Rectangle nextRectangle() {
-        return null;
+    /**
+     * 下一次移动会占用的矩形空间
+     */
+    public Rectangle nextRectangle(DirectionEnum nextDirection) {
+        return getRectByPositionAndDirection(nextPosition(nextDirection), nextDirection);
+    }
+
+    private Rectangle getRectByPositionAndDirection(Point point, DirectionEnum direction) {
+        // 当方向为LEFT，RIGHT时，需要交换width和height
+        double realWidth;
+        double realHeight;
+        switch (direction) {
+            case UP:
+            case DOWN:
+                realWidth = width;
+                realHeight = height;
+                break;
+            case LEFT:
+            case RIGHT:
+                realWidth = height;
+                realHeight = width;
+                break;
+            default:
+                throw new IllegalArgumentException(direction.toString());
+        }
+        return new Rectangle(point.getX(), point.getY(), realWidth, realHeight);
     }
 }

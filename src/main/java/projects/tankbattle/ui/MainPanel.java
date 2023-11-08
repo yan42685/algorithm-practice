@@ -105,7 +105,8 @@ public class MainPanel extends JPanel implements Runnable {
                     .filter(AbstractTank::isAlive)
                     // 不会击毁同阵营坦克
                     .filter(tank -> !bullet.getFaction().equals(tank.getFaction()))
-                    .filter(tank -> TankUtils.doBulletIntersectTank(bullet, tank))
+                    // 找到相交坦克
+                    .filter(bullet::intersects)
                     .forEach(tank -> {
                         tank.decreaseHealth(bullet.getDamage());
                         bullet.setAlive(false);

@@ -53,8 +53,9 @@ public enum CommandManager {
                 // 坦克碰撞检测
                 AbstractTank tank = (AbstractTank) movable;
                 boolean willIntersect = panel.getTanks().stream()
-                        .filter(AbstractTank::isAlive)
-                        .anyMatch(t -> TankUtils.willTanksIntersect(tank, nextDirection, t));
+                        // 排除死亡坦克和自己
+                        .filter(t -> t.isAlive() && t != tank)
+                        .anyMatch(t -> tank.nextRectangle(nextDirection).intersects(t));
                 if (willIntersect) {
                     return false;
                 }
