@@ -75,7 +75,7 @@ public class PaintBrush {
         brush.setColor(Color.ORANGE);
         bullets.stream().filter(Bullet::isAlive).forEach(
                 bullet -> {
-                    int radius = bullet.getWidth() / 2;
+                    int radius = (int) bullet.getWidth() / 2;
                     int x = (int) bullet.getX();
                     int y = (int) bullet.getY();
                     brush.fillOval(x - radius, y - radius, radius * 2, radius * 2);

@@ -16,14 +16,8 @@ public class EnemyTank extends AbstractTank implements Runnable {
     private static final int MAX_MOVE_DURATION = 3500;
 
     public EnemyTank(double x, double y, DirectionEnum direction) {
-        super(x, y, direction);
-        step = 2.2;
+        super(x, y, direction, 2.2, FactionEnum.ENEMY);
         minShootInterval = 2200;
-    }
-
-    @Override
-    protected void setFaction() {
-        this.faction = FactionEnum.ENEMY;
     }
 
     @Override

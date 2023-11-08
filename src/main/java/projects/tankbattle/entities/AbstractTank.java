@@ -13,25 +13,18 @@ import java.util.concurrent.atomic.AtomicInteger;
 @ToString
 public abstract class AbstractTank extends Movable {
     // 重新声明一个于父类同名的属性 可能出现静态绑定问题
-    protected double step = 5.0;
     protected AtomicInteger health = new AtomicInteger(1);
     // 最小射击间隔, 单位毫秒
     protected int minShootInterval = 500;
     // 上次射击时间
     protected long lastShootTime = 0;
-    // 阵营
-    protected FactionEnum faction;
 
-    public AbstractTank(double x, double y, DirectionEnum direction) {
-        super(x, y, direction);
+    public AbstractTank(double x, double y, DirectionEnum direction, double step, FactionEnum faction) {
         // 向上状态的宽与高
         // 宽度为 10 + 20 + 10
-        width = 40;
         // 高度为 60
-        height = 60;
-        setFaction();
+        super(x, y, 40, 60, direction, step, faction);
     }
-
 
 
     public @Nullable Bullet shoot() {
@@ -81,6 +74,5 @@ public abstract class AbstractTank extends Movable {
         }
     }
 
-    protected abstract void setFaction();
 
 }

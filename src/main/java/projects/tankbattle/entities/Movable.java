@@ -3,23 +3,27 @@ package projects.tankbattle.entities;
 import projects.tankbattle.constants.DirectionEnum;
 import lombok.Getter;
 import lombok.Setter;
+import projects.tankbattle.constants.FactionEnum;
 
+/**
+ * 为了简化实现，默认所有实体都是矩形
+ */
 @Getter
-public abstract class Movable {
-    protected double x;
-    protected double y;
+public abstract class Movable extends Rectangle {
+    @Setter
+    protected boolean isAlive = true;
     protected DirectionEnum direction;
     // 步长
     protected double step;
-    protected int width;
-    protected int height;
-    @Setter
-    protected boolean isAlive = true;
+    // 阵营
+    protected FactionEnum faction;
 
-    public Movable(double x, double y, DirectionEnum direction) {
-        this.x = x;
-        this.y = y;
+    public Movable(double x, double y, double width, double height,
+                   DirectionEnum direction, double step, FactionEnum faction) {
+        super(x, y, width, height);
         this.direction = direction;
+        this.step = step;
+        this.faction = faction;
     }
 
     /**
@@ -54,5 +58,14 @@ public abstract class Movable {
             default:
                 throw new IllegalArgumentException(nextDirection.toString());
         }
+    }
+
+    // TODO: 实现
+    public Rectangle currentRectangle() {
+        return null;
+    }
+
+    public Rectangle nextRectangle() {
+        return null;
     }
 }
