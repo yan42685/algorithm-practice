@@ -1,11 +1,17 @@
 package projects.tankbattle.ui;
 
+import projects.tankbattle.constants.Constants;
+import projects.tankbattle.constants.DirectionEnum;
 import projects.tankbattle.constants.FactionEnum;
 import projects.tankbattle.entities.AbstractTank;
 import projects.tankbattle.entities.Bullet;
+import projects.tankbattle.entities.EnemyTank;
+import projects.tankbattle.entities.Rectangle;
 
 import java.awt.*;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
 
 /**
  * 绘制各种图形的画笔
@@ -16,9 +22,26 @@ public class PaintBrush {
     private PaintBrush() {
     }
 
-    public static void drawBackground(Graphics brush, Dimension panelSize) {
+    public static void drawBattleArea(Graphics brush, Rectangle area) {
         brush.setColor(Color.DARK_GRAY);
-        brush.fillRect(0, 0, panelSize.width, panelSize.height);
+        brush.fillRect((int) area.getX(), (int) area.getY(), (int) area.getWidth(), (int) area.getHeight());
+    }
+
+    public static void drawGameRecord(Graphics brush, Rectangle area) {
+        brush.setColor(Color.GRAY);
+        int x = (int) area.getX();
+        int y = (int) area.getY();
+        int width = (int) area.getWidth();
+        int height = (int) area.getHeight();
+        brush.fillRect(x, y, width, height);
+
+        brush.setColor(Color.BLACK);
+        brush.setFont(Constants.FONT_BOLD_18);
+        brush.drawString("累计击毁敌方坦克", x + (int) (0.1 * width), y + (int) (0.1 * height));
+        // 绘制坦克图标
+        LinkedList<AbstractTank> list = new LinkedList<>();
+        list.add(new EnemyTank(x + (int) (0.1 * width), y + (int) (0.17 * height), DirectionEnum.UP));
+        drawTanks(brush, list);
     }
 
     public static void drawTanks(Graphics brush, Collection<AbstractTank> tanks) {

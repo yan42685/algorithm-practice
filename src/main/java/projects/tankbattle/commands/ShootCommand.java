@@ -50,7 +50,7 @@ public class ShootCommand implements Command {
             }
         };
         // 提交给线程池执行
-        ThreadExecutor.submit(task);
+        ThreadExecutor.execute(task);
 
         return bulletQueue.offer(bullet);
     }

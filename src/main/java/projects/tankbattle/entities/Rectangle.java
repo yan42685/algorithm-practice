@@ -1,10 +1,9 @@
 package projects.tankbattle.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Setter;
+import lombok.*;
 
 @Data
+@ToString
 public class Rectangle {
     protected boolean isAlive = true;
     protected double x;

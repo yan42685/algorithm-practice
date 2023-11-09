@@ -13,7 +13,6 @@ import projects.tankbattle.utils.CommandExecutor;
 import projects.tankbattle.utils.TankUtils;
 import projects.tankbattle.utils.ThreadExecutor;
 
-import javax.swing.*;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +23,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class GameManager {
 
     private static final int ENEMY_COUNT = 4;
-    private final JPanel panel;
+    private final MainPanel panel;
 
     private final List<Bullet> bullets;
     // 同步队列, 接收多个坦克线程发射的子弹，并在渲染前drainTo(bulletList)
@@ -32,7 +31,7 @@ public class GameManager {
     private final BlockingQueue<Bullet> bulletQueue;
     private final List<AbstractTank> tanks;
 
-    public GameManager(JPanel panel) {
+    public GameManager(MainPanel panel) {
         this.panel = panel;
         // 可聚焦, 聚焦这个panel之后才能监听键盘输入
         this.panel.setFocusable(true);
@@ -66,7 +65,7 @@ public class GameManager {
         // 添加敌人坦克
         for (int i = 1; i <= ENEMY_COUNT; i++) {
             EnemyTank enemyTank = new EnemyTank(200 * i, 80 * i, DirectionEnum.random());
-            ThreadExecutor.submit(enemyTank);
+            ThreadExecutor.execute(enemyTank);
             tanks.add(enemyTank);
         }
         // 添加主角坦克并监听键盘操作
@@ -86,7 +85,7 @@ public class GameManager {
         while (bulletIterator.hasNext()) {
             Bullet bullet = bulletIterator.next();
             // 移除失效或越界bullet
-            boolean shouldBeRemoved = !bullet.isAlive() || TankUtils.willBeOutOfBounds(panel, bullet, bullet.getDirection());
+            boolean shouldBeRemoved = !bullet.isAlive() || TankUtils.willBeOutOfBounds(panel.battleArea, bullet, bullet.getDirection());
             if (shouldBeRemoved) {
                 // 让子弹线程停止while循环
                 bullet.setAlive(false);

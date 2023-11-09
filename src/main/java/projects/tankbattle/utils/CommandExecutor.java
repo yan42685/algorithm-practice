@@ -1,6 +1,7 @@
 package projects.tankbattle.utils;
 
 import cn.hutool.core.lang.Assert;
+import lombok.extern.slf4j.Slf4j;
 import projects.tankbattle.commands.Command;
 import projects.tankbattle.commands.MoveCommand;
 import projects.tankbattle.commands.ShootCommand;
@@ -13,6 +14,7 @@ import projects.tankbattle.ui.GameManager;
  * 有状态的公用方法 -> 单例模式
  * 无状态的公用方法 -> 静态方法组成的工具类
  */
+@Slf4j
 public enum CommandExecutor {
     // 单例对象
     INSTANCE;
@@ -45,7 +47,7 @@ public enum CommandExecutor {
             // 越界检测
             Movable movable = ((MoveCommand) command).getMovable();
             DirectionEnum nextDirection = ((MoveCommand) command).getNextDirection();
-            if (TankUtils.willBeOutOfBounds(context.getPanel(), movable, nextDirection)) {
+            if (TankUtils.willBeOutOfBounds(context.getPanel().battleArea, movable, nextDirection)) {
                 return false;
             }
             if (movable instanceof AbstractTank) {

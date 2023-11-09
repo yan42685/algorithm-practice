@@ -12,7 +12,7 @@ public class ThreadExecutor {
                 TimeUnit.SECONDS, new LinkedBlockingQueue<>(10000), new ThreadPoolExecutor.CallerRunsPolicy());
     }
 
-    public static void submit(Runnable task) {
-        Holder.pool.submit(task);
+    public static void execute(Runnable task) {
+        Holder.pool.execute(task);
     }
 }
