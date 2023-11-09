@@ -1,7 +1,7 @@
 package projects.tankbattle.commands;
 
 import projects.tankbattle.constants.Constants;
-import projects.tankbattle.utils.ThreadExecutor;
+import projects.tankbattle.core.ThreadExecutor;
 import projects.tankbattle.entities.AbstractTank;
 import projects.tankbattle.entities.Bullet;
 import lombok.Getter;

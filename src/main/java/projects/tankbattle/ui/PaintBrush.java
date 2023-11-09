@@ -3,6 +3,7 @@ package projects.tankbattle.ui;
 import projects.tankbattle.constants.Constants;
 import projects.tankbattle.constants.DirectionEnum;
 import projects.tankbattle.constants.FactionEnum;
+import projects.tankbattle.core.GameRecorder;
 import projects.tankbattle.entities.AbstractTank;
 import projects.tankbattle.entities.Bullet;
 import projects.tankbattle.entities.EnemyTank;
@@ -10,7 +11,6 @@ import projects.tankbattle.entities.Rectangle;
 
 import java.awt.*;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedList;
 
 /**
@@ -36,8 +36,10 @@ public class PaintBrush {
         brush.fillRect(x, y, width, height);
 
         brush.setColor(Color.BLACK);
-        brush.setFont(Constants.FONT_BOLD_18);
+        brush.setFont(Constants.FONT_BOLD_20);
+        // 显示击毁数
         brush.drawString("累计击毁敌方坦克", x + (int) (0.1 * width), y + (int) (0.1 * height));
+        brush.drawString(String.format("X %d", GameRecorder.INSTANCE.getDeadEnemiesCount()), x + (int) (0.4 * width), y + (int) (0.23 * height));
         // 绘制坦克图标
         LinkedList<AbstractTank> list = new LinkedList<>();
         list.add(new EnemyTank(x + (int) (0.1 * width), y + (int) (0.17 * height), DirectionEnum.UP));

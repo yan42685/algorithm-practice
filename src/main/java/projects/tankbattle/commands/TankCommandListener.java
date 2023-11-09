@@ -3,8 +3,8 @@ package projects.tankbattle.commands;
 import projects.tankbattle.constants.DirectionEnum;
 import projects.tankbattle.entities.AbstractTank;
 import lombok.extern.slf4j.Slf4j;
-import projects.tankbattle.utils.CommandExecutor;
-import projects.tankbattle.ui.GameManager;
+import projects.tankbattle.core.CommandExecutor;
+import projects.tankbattle.core.GameManager;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

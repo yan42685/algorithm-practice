@@ -2,6 +2,7 @@ package projects.tankbattle.ui;
 
 import lombok.Getter;
 import projects.tankbattle.entities.Rectangle;
+import projects.tankbattle.core.GameManager;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,11 +1,9 @@
-package projects.tankbattle.utils;
+package projects.tankbattle.core;
 
 import lombok.extern.slf4j.Slf4j;
-import projects.tankbattle.constants.Constants;
 import projects.tankbattle.constants.DirectionEnum;
 import projects.tankbattle.entities.*;
 
-import javax.swing.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j

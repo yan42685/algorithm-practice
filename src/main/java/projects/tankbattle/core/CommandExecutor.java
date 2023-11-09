@@ -1,4 +1,4 @@
-package projects.tankbattle.utils;
+package projects.tankbattle.core;
 
 import cn.hutool.core.lang.Assert;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +8,6 @@ import projects.tankbattle.commands.ShootCommand;
 import projects.tankbattle.constants.DirectionEnum;
 import projects.tankbattle.entities.AbstractTank;
 import projects.tankbattle.entities.Movable;
-import projects.tankbattle.ui.GameManager;
 
 /**
  * 有状态的公用方法 -> 单例模式

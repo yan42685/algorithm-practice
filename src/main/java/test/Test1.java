@@ -15,8 +15,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class Test1 {
 
     public static void main(String[] args) {
-        PriorityQueue<Movable> pq = new PriorityQueue<>((a,b) -> Double.compare(a.getX(), b.getX()));
-//        LazySingleton2 instance = LazySingleton2.getInstance();
+        String rootPath = System.getProperty("user.dir");
+
+        System.out.println(rootPath);
     }
 
 }

@@ -4,8 +4,8 @@ import projects.tankbattle.commands.MoveCommand;
 import projects.tankbattle.constants.Constants;
 import projects.tankbattle.constants.DirectionEnum;
 import projects.tankbattle.constants.FactionEnum;
-import projects.tankbattle.utils.CommandExecutor;
-import projects.tankbattle.utils.TankUtils;
+import projects.tankbattle.core.CommandExecutor;
+import projects.tankbattle.core.TankUtils;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 

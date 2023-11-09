@@ -1,17 +1,15 @@
-package projects.tankbattle.ui;
+package projects.tankbattle.core;
 
-import cn.hutool.core.lang.Assert;
 import lombok.Getter;
 import projects.tankbattle.commands.TankCommandListener;
 import projects.tankbattle.constants.Constants;
 import projects.tankbattle.constants.DirectionEnum;
+import projects.tankbattle.constants.FactionEnum;
 import projects.tankbattle.entities.AbstractTank;
 import projects.tankbattle.entities.Bullet;
 import projects.tankbattle.entities.EnemyTank;
 import projects.tankbattle.entities.HeroTank;
-import projects.tankbattle.utils.CommandExecutor;
-import projects.tankbattle.utils.TankUtils;
-import projects.tankbattle.utils.ThreadExecutor;
+import projects.tankbattle.ui.MainPanel;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -41,10 +39,10 @@ public class GameManager {
         tanks = new LinkedList<>();
 
         CommandExecutor.INSTANCE.setContext(this);
+        GameRecorder.INSTANCE.setContext(this);
     }
 
     public void startGame() {
-        Assert.notNull(panel);
         initTanks();
 
         Runnable task = () -> {
@@ -104,6 +102,9 @@ public class GameManager {
                     .filter(bullet::intersects)
                     .forEach(tank -> {
                         tank.decreaseHealth(bullet.getDamage());
+                        if (!tank.isAlive() && tank.getFaction().equals(FactionEnum.ENEMY)) {
+                            GameRecorder.INSTANCE.increaseDeadEnemiesCount(1);
+                        }
                         bullet.setAlive(false);
                         bulletIterator.remove();
                     });

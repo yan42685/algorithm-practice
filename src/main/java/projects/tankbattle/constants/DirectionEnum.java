@@ -1,6 +1,6 @@
 package projects.tankbattle.constants;
 
-import projects.tankbattle.utils.TankUtils;
+import projects.tankbattle.core.TankUtils;
 
 public enum DirectionEnum {
     UP, DOWN, LEFT, RIGHT;
