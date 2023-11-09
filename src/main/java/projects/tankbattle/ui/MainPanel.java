@@ -1,6 +1,7 @@
 package projects.tankbattle.ui;
 
 import lombok.Getter;
+import lombok.Setter;
 import projects.tankbattle.entities.Rectangle;
 import projects.tankbattle.core.GameManager;
 
@@ -12,13 +13,12 @@ public class MainPanel extends JPanel {
 
     public Rectangle battleArea;
     public Rectangle recordArea;
-    private final GameManager gameManager;
+    @Setter
+    private GameManager gameManager;
 
     public MainPanel() {
         // 初始化区域，避免空指针异常
         updateAreaSize();
-        gameManager = new GameManager(this);
-        gameManager.startGame();
     }
 
     @Override

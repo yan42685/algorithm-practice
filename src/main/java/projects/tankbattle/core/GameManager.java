@@ -1,7 +1,7 @@
 package projects.tankbattle.core;
 
 import lombok.Getter;
-import projects.tankbattle.commands.TankCommandListener;
+import lombok.Setter;
 import projects.tankbattle.constants.Constants;
 import projects.tankbattle.constants.DirectionEnum;
 import projects.tankbattle.constants.FactionEnum;
@@ -9,11 +9,13 @@ import projects.tankbattle.entities.AbstractTank;
 import projects.tankbattle.entities.Bullet;
 import projects.tankbattle.entities.EnemyTank;
 import projects.tankbattle.entities.HeroTank;
+import projects.tankbattle.ui.Frame;
 import projects.tankbattle.ui.MainPanel;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -21,30 +23,32 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class GameManager {
 
     private static final int ENEMY_COUNT = 4;
-    private final MainPanel panel;
+    private MainPanel panel;
 
-    private final List<Bullet> bullets;
+    @Setter
+    private List<Bullet> bullets;
     // 同步队列, 接收多个坦克线程发射的子弹，并在渲染前drainTo(bulletList)
     // 如果不用同步队列、只用Vector<bullet>可能出现遍历时添加子弹抛出ConcurrentModificationException
-    private final BlockingQueue<Bullet> bulletQueue;
-    private final List<AbstractTank> tanks;
+    @Setter
+    private BlockingQueue<Bullet> bulletQueue;
+    @Setter
+    private List<AbstractTank> tanks;
 
-    public GameManager(MainPanel panel) {
-        this.panel = panel;
-        // 可聚焦, 聚焦这个panel之后才能监听键盘输入
-        this.panel.setFocusable(true);
-
-        bullets = new LinkedList<>();
-        bulletQueue = new LinkedBlockingQueue<>();
-        tanks = new LinkedList<>();
-
+    public GameManager() {
         CommandExecutor.INSTANCE.setContext(this);
         GameRecorder.INSTANCE.setContext(this);
+        beforeStart();
     }
 
     public void startGame() {
-        initTanks();
+        // 启动画面
+        Frame frame = new Frame();
+        panel = frame.getMainPanel();
+        // 可聚焦, 聚焦这个panel之后才能监听键盘输入
+        panel.setFocusable(true);
+        panel.setGameManager(this);
 
+        // 定时更新状态与重绘
         Runnable task = () -> {
             while (true) {
                 updateStates();
@@ -58,18 +62,53 @@ public class GameManager {
         };
         // 绘图线程不必用到线程池
         new Thread(task).start();
-    }
-    private void initTanks() {
-        // 添加敌人坦克
-        for (int i = 1; i <= ENEMY_COUNT; i++) {
-            EnemyTank enemyTank = new EnemyTank(200 * i, 80 * i, DirectionEnum.random());
-            ThreadExecutor.execute(enemyTank);
-            tanks.add(enemyTank);
+
+        // 初始化坦克与命令监听器
+        for (AbstractTank tank : tanks) {
+            if (tank instanceof HeroTank) {
+                panel.addKeyListener(new HeroCommandListener(this, tank));
+            } else if (tank instanceof EnemyTank) {
+                ThreadExecutor.execute((EnemyTank) tank);
+            }
         }
-        // 添加主角坦克并监听键盘操作
-        HeroTank heroTank = new HeroTank(200, 200, DirectionEnum.UP);
-        panel.addKeyListener(new TankCommandListener(this, heroTank));
-        tanks.add(heroTank);
+    }
+
+
+    /**
+     * 运行前建立必要的状态
+     */
+    private void beforeStart() {
+        Runnable initStates = () -> {
+            bulletQueue = new LinkedBlockingQueue<>();
+            bullets = new LinkedList<>();
+            tanks = new LinkedList<>();
+            // 添加敌人坦克
+            for (int i = 1; i <= ENEMY_COUNT; i++) {
+                EnemyTank enemyTank = new EnemyTank(200 * i, 80 * i, DirectionEnum.random());
+                tanks.add(enemyTank);
+            }
+            // 添加主角坦克
+            HeroTank heroTank = new HeroTank(200, 200, DirectionEnum.UP);
+            tanks.add(heroTank);
+        };
+
+        Scanner scanner = new Scanner(System.in);
+        // 有存档则让用户选择是否读取存档
+        if (GameRecorder.INSTANCE.hasSavedData()) {
+            while (true) {
+                System.out.println("是否恢复存档？ (y/n)");
+                String command = scanner.next();
+                if ("y".equalsIgnoreCase(command)) {
+                    GameRecorder.INSTANCE.recoverData();
+                    break;
+                } else if ("n".equalsIgnoreCase(command)) {
+                    initStates.run();
+                    break;
+                }
+            }
+        } else {
+            initStates.run();
+        }
     }
 
     /**

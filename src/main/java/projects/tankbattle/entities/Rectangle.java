@@ -2,9 +2,11 @@ package projects.tankbattle.entities;
 
 import lombok.*;
 
+import java.io.Serializable;
+
 @Data
 @ToString
-public class Rectangle {
+public class Rectangle implements Serializable {
     protected boolean isAlive = true;
     protected double x;
     protected double y;

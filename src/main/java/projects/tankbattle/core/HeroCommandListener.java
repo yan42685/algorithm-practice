@@ -1,10 +1,11 @@
-package projects.tankbattle.commands;
+package projects.tankbattle.core;
 
+import projects.tankbattle.commands.Command;
+import projects.tankbattle.commands.MoveCommand;
+import projects.tankbattle.commands.ShootCommand;
 import projects.tankbattle.constants.DirectionEnum;
 import projects.tankbattle.entities.AbstractTank;
 import lombok.extern.slf4j.Slf4j;
-import projects.tankbattle.core.CommandExecutor;
-import projects.tankbattle.core.GameManager;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -16,11 +17,11 @@ import java.util.Map;
  * 命令模式 将命令的发送者和接受者逻辑解耦
  */
 @Slf4j
-public class TankCommandListener extends KeyAdapter {
+public class HeroCommandListener extends KeyAdapter {
     private final Map<Integer, Command> map;
     private final GameManager context;
 
-    public TankCommandListener(GameManager context, AbstractTank tank) {
+    public HeroCommandListener(GameManager context, AbstractTank tank) {
         map = new HashMap<>();
         this.context = context;
         registerCommands(tank);
