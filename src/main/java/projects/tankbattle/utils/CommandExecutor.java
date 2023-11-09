@@ -54,7 +54,7 @@ public enum CommandExecutor {
                 boolean willIntersect = context.getTanks().stream()
                         // 排除死亡坦克和自己
                         .filter(t -> t.isAlive() && t != tank)
-                        .anyMatch(t -> tank.nextRectangle(nextDirection).intersects(t));
+                        .anyMatch(t -> tank.nextRectangle(nextDirection).intersects(t.currentRectangle()));
                 if (willIntersect) {
                     return false;
                 }
